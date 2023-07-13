@@ -1,0 +1,34 @@
+# Macos file
+.DS_store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# dotenv environment variables file
+.env
+.env.*
+!.env.example
+
+# VS Code
+.vscode/
+
+# Build artifacts
+dist
+dev-dist
+dist-ssr
+coverage
+
+# Server certificates
+certs
+*.pem
+*.crt
+*.key
+
+# Typescript build info
+*.tsbuildinfo

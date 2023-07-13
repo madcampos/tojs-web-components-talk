@@ -7,7 +7,7 @@ import { defineConfig, type UserConfig } from 'vitest/config';
 import { type ManifestOptions, VitePWA as vitePWA } from 'vite-plugin-pwa';
 import htmlMinifier from 'vite-plugin-html-minifier';
 
-import { externalResources, internalResources, shareTarget } from './src/service-worker';
+import { externalResources, internalResources } from './src/service-worker';
 
 const sslOptions = {
 	cert: readFileSync('./certs/server.crt'),
@@ -48,8 +48,7 @@ export default defineConfig(({ mode }) => {
 					navigationPreload: false,
 					runtimeCaching: [
 						internalResources,
-						externalResources,
-						shareTarget
+						externalResources
 					]
 				},
 				devOptions: {

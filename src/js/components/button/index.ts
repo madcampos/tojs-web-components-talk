@@ -19,7 +19,7 @@ export class CustomButton extends HTMLElement {
 		this.shadowRoot.innerHTML = `
 			<link rel="stylesheet" href="${cssLink}">
 			<div id="wrapper">
-				<button tabindex="-1">
+				<button tabindex="-1" type="${this.type}" ${this.disabled ? 'disabled' : ''}>
 					<slot></slot>
 				</button>
 			</div>
@@ -43,6 +43,16 @@ export class CustomButton extends HTMLElement {
 		this.setAttribute('type', value);
 		this.shadowRoot.querySelector('button')?.setAttribute('type', value);
 	}
+
+	get form() { return this.#internals.form; }
+	get name() { return this.getAttribute('name'); }
+	get validity() { return this.#internals.validity; }
+	get validationMessage() { return this.#internals.validationMessage; }
+	get willValidate() { return this.#internals.willValidate; }
+
+	checkValidity() { return this.#internals.checkValidity(); }
+	reportValidity() { return this.#internals.reportValidity(); }
+	setCustomValidity(message: string) { this.#internals.setValidity({ customError: message !== '' }, message); }
 
 	connectedCallback() {
 		this.shadowRoot.querySelector('button')?.addEventListener('click', () => {

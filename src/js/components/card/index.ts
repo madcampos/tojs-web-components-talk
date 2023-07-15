@@ -1,8 +1,6 @@
 import cssLink from './style.css?url';
 
 export class CustomCard extends HTMLElement {
-	static get observedAttributes() { return ['image']; }
-
 	declare shadowRoot: ShadowRoot;
 
 	constructor() {
@@ -14,7 +12,7 @@ export class CustomCard extends HTMLElement {
 			<article>
 				<header>
 					<picture>
-						<img loading="lazy" role="presentation">
+						<slot name="image"></slot>
 					</picture>
 					<h2><slot name="title"></slot></h2>
 					<p><slot name="subtitle"></slot></p>
@@ -30,29 +28,50 @@ export class CustomCard extends HTMLElement {
 		`;
 	}
 
-	get image() {
-		return this.getAttribute('image') ?? '';
-	}
+	connectedCallback() {
+		const like = this.shadowRoot.querySelector('#like') as HTMLButtonElement;
+		const share = this.shadowRoot.querySelector('#share') as HTMLButtonElement;
 
-	set image(value) {
-		this.setAttribute('image', value);
+		like.addEventListener('click', () => {
+			like.disabled = true;
 
-		const img = this.shadowRoot.querySelector('img') as HTMLImageElement;
+			try {
+				like.classList.toggle('active');
 
-		img.src = value;
-	}
+				this.dispatchEvent(new CustomEvent<{ state: boolean, id: string }>('like', {
+					detail: {
+						state: like.classList.contains('active'),
+						id: this.getAttribute('user-id') ?? ''
+					}
+				}));
+			} catch {
+				console.error('Like failed');
+			}
 
-	attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-		if (oldValue === newValue) {
-			return;
-		}
+			like.disabled = false;
+		});
 
-		switch (name) {
-			case 'image':
-				this.image = newValue;
-				break;
-			default:
-		}
+		share.addEventListener('click', async () => {
+			share.disabled = true;
+
+			try {
+				const title = this.shadowRoot.querySelector<HTMLSlotElement>('slot[name="title"]')?.assignedElements()[0]?.textContent ?? '';
+				const subtitle = this.shadowRoot.querySelector<HTMLSlotElement>('slot[name="subtitle"]')?.assignedElements()[0]?.textContent ?? '';
+				const text = this.shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')?.assignedElements()[0]?.textContent ?? '';
+
+				const data: ShareData = {
+					title: `${title} (${subtitle})`,
+					text,
+					url: window.location.href
+				};
+
+				await navigator.share(data);
+			} catch {
+				console.error('Share failed');
+			}
+
+			share.disabled = false;
+		});
 	}
 }
 

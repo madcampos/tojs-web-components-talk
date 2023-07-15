@@ -1,0 +1,26 @@
+:host * {
+	box-sizing: border-box;
+	font-family: inherit;
+}
+
+#tab-container {
+	display: flex;
+	flex-direction: column;
+	margin: 1rem;
+}
+
+#tabs-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 1rem;
+	inline-size: fit-content;
+	margin-inline: auto;
+}
+
+#panels-wrapper {
+	padding: 0.5rem;
+	overflow: auto;
+	max-block-size: 20rem;
+	inline-size: 100%;
+}

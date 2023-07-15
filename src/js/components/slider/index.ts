@@ -1,7 +1,7 @@
 import cssLink from './style.css?url';
 
 export class CustomSlider extends HTMLElement {
-	static get observedAttributes() { return ['value', 'min', 'max', 'step', 'disabled', 'required', 'readonly']; }
+	static get observedAttributes() { return ['value', 'min', 'max', 'step', 'disabled', 'readonly']; }
 	static formAssociated = true;
 
 	declare shadowRoot: ShadowRoot;
@@ -10,17 +10,27 @@ export class CustomSlider extends HTMLElement {
 	constructor() {
 		super();
 
-		this.attachShadow({ mode: 'open' });
+		this.attachShadow({ mode: 'open', delegatesFocus: true });
 		this.#internals = this.attachInternals();
+
+		this.#internals.role = 'slider';
+		this.#internals.ariaValueMin = this.min;
+		this.#internals.ariaValueMax = this.max;
+		this.#internals.ariaValueNow = this.value;
 
 		this.shadowRoot.innerHTML = `
 			<link rel="stylesheet" href="${cssLink}">
-			<div id="slider-container">
-				<label for="slider">
-					<slot></slot>
-				</label>
-				<input type="range" id="slider" name="slider" min="${this.min}" max="${this.max}" value="${this.value}" step="${this.step}" ${this.disabled ? 'disabled' : ''} ${this.required ? 'required' : ''} ${this.readonly ? 'readonly' : ''}>
-			</div>
+			<label id="slider-container" for="slider">
+				<section id="label">
+					<h3>
+						<slot></slot>
+					</h3>
+					<p>
+						<slot name="description"></slot>
+					</p>
+				</section>
+				<input type="range" id="slider" name="slider" min="${this.min}" max="${this.max}" value="${this.value}" step="${this.step}" ${this.disabled ? 'disabled' : ''} ${this.readonly ? 'readonly' : ''}>
+			</label>
 		`;
 	}
 
@@ -31,6 +41,7 @@ export class CustomSlider extends HTMLElement {
 	set value(value: string) {
 		this.setAttribute('value', value);
 		this.shadowRoot.querySelector('input')?.setAttribute('value', value);
+		this.#internals.ariaValueNow = value;
 	}
 
 	get min() {
@@ -40,6 +51,7 @@ export class CustomSlider extends HTMLElement {
 	set min(value: string) {
 		this.setAttribute('min', value);
 		this.shadowRoot.querySelector('input')?.setAttribute('min', value);
+		this.#internals.ariaValueMin = value;
 	}
 
 	get max() {
@@ -49,6 +61,7 @@ export class CustomSlider extends HTMLElement {
 	set max(value: string) {
 		this.setAttribute('max', value);
 		this.shadowRoot.querySelector('input')?.setAttribute('max', value);
+		this.#internals.ariaValueMax = value;
 	}
 
 	get step() {
@@ -67,15 +80,6 @@ export class CustomSlider extends HTMLElement {
 	set disabled(value: boolean) {
 		this.toggleAttribute('disabled', value);
 		this.shadowRoot.querySelector('input')?.toggleAttribute('disabled', value);
-	}
-
-	get required() {
-		return this.hasAttribute('required');
-	}
-
-	set required(value: boolean) {
-		this.toggleAttribute('required', value);
-		this.shadowRoot.querySelector('input')?.toggleAttribute('required', value);
 	}
 
 	get readonly() {
@@ -99,7 +103,7 @@ export class CustomSlider extends HTMLElement {
 
 	#validate() {
 		let message = '';
-		const valueMissing = this.required && this.value === '';
+		const valueMissing = this.value === '';
 		const value = Number(this.value);
 
 		const stepMismatch = this.step !== undefined && (value % Number.parseFloat(this.step) !== 0);
@@ -128,6 +132,12 @@ export class CustomSlider extends HTMLElement {
 	}
 
 	connectedCallback() {
+		this.shadowRoot.querySelector('slot:not([name])')?.addEventListener('slotchange', (evt) => {
+			const target = evt.target as HTMLSlotElement;
+
+			this.#internals.ariaLabel = (target.assignedNodes()[0]?.textContent ?? '').trim();
+		});
+
 		this.shadowRoot.querySelector('input')?.addEventListener('input', () => {
 			this.value = this.shadowRoot.querySelector('input')?.value ?? '';
 
@@ -165,9 +175,6 @@ export class CustomSlider extends HTMLElement {
 				break;
 			case 'disabled':
 				this.disabled = newValue !== null;
-				break;
-			case 'required':
-				this.required = newValue !== null;
 				break;
 			case 'readonly':
 				this.readonly = newValue !== null;

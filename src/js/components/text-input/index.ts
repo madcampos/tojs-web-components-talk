@@ -20,13 +20,13 @@ export class CustomTextInput extends HTMLElement {
 
 		this.shadowRoot.innerHTML = `
 			<link rel="stylesheet" href="${cssLink}">
-			<div id="text-input-container">
-				<label for="text-input">
+			<label for="text-input" id="text-input-container">
+				<h3>
 					<slot></slot>
-				</label>
+				</h3>
 
 				<input type="text" id="text-input" name="text-input" value="${this.value}" placeholder="${this.placeholder}" ${this.disabled ? 'disabled' : ''} ${this.readonly ? 'readonly' : ''} ${this.required ? 'required' : ''} ${this.autocomplete ? 'autocomplete' : ''} ${this.maxLength ? 'maxlength' : ''} ${this.minLength ? 'minlength' : ''}>
-			</div>
+			</label>
 		`;
 	}
 
@@ -143,7 +143,7 @@ export class CustomTextInput extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this.shadowRoot.querySelector('slot')?.addEventListener('slotchange', (evt) => {
+		this.shadowRoot.querySelector('slot:not([name])')?.addEventListener('slotchange', (evt) => {
 			const target = evt.target as HTMLSlotElement;
 
 			this.#internals.ariaLabel = (target.assignedNodes()[0]?.textContent ?? '').trim();

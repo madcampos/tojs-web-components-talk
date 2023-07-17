@@ -69,7 +69,7 @@ export class CustomSelect extends HTMLElement {
 		this.setAttribute('value', value);
 
 		const options = this.#optionsSlot.assignedElements() as CustomSelectOption[];
-		const selectedOption = options.find((option) => option.value === this.value);
+		const selectedOption = options.find((option) => option.value === value || option.getAttribute('value') === value);
 
 		this.#selectedOption.textContent = selectedOption?.textContent ?? this.#placeholderText;
 	}

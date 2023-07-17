@@ -10,7 +10,7 @@ export class CustomAvatarEditable extends CustomAvatar {
 	constructor() {
 		super();
 
-		this.shadowRoot.querySelector('style')?.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${cssLink}">`);
+		this.shadowRoot.querySelector('link')?.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${cssLink}">`);
 
 		this.shadowRoot.querySelector('#container')?.insertAdjacentHTML('beforeend', `
 			<div id="edit-overlay">

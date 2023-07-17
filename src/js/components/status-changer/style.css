@@ -1,0 +1,8 @@
+#combobox-container {
+	padding: var(--padding-small);
+	width: 1.3rem;
+
+	& button {
+		display: none;
+	}
+}

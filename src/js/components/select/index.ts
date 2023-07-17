@@ -123,6 +123,23 @@ export class CustomSelect extends HTMLElement {
 		}, message);
 	}
 
+	#positionPopover() {
+		const { top, left, height } = this.getBoundingClientRect();
+		let offsetTop = top;
+		let offsetLeft = left;
+		// eslint-disable-next-line consistent-this, @typescript-eslint/no-this-alias
+		let elem: HTMLElement | null = this;
+
+		do {
+			elem = elem.parentElement;
+			offsetTop += elem?.scrollTop ?? 0;
+			offsetLeft += elem?.scrollLeft ?? 0;
+		} while (elem && elem !== document.documentElement);
+
+		this.#optionsList.style.setProperty('--popover-top', `${offsetTop + height}px`);
+		this.#optionsList.style.setProperty('--popover-left', `${offsetLeft}px`);
+	}
+
 	#handlePopoverActionKeys(evt: KeyboardEvent) {
 		const { key, altKey, ctrlKey, metaKey } = evt;
 		let isPopoverActionKey = false;
@@ -258,6 +275,8 @@ export class CustomSelect extends HTMLElement {
 			this.#internals.ariaExpanded = this.#isPopoverVisible ? 'true' : 'false';
 
 			if (this.#isPopoverVisible) {
+				this.#positionPopover();
+
 				const selectedOption = (this.#optionsSlot.assignedElements() as CustomSelectOption[]).find((item) => item.value === this.value);
 
 				if (selectedOption) {

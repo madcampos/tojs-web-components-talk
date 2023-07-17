@@ -1,0 +1,22 @@
+:host * {
+	box-sizing: border-box;
+	font-family: inherit;
+	font-size: inherit;
+}
+
+button {
+	display: block;
+	border: none;
+	background: transparent;
+
+	&:focus {
+		outline: none;
+		background: var(--base-color);
+		color: var(--bg-color);
+	}
+
+	&:hover {
+		background: var(--hover-color);
+		color: var(--bg-color);
+	}
+}

@@ -1,0 +1,57 @@
+:host {
+	color: var(--text-color);
+
+	& * {
+		box-sizing: border-box;
+		font-family: inherit;
+	}
+}
+
+#combobox-container {
+	position: relative;
+	display: inline-flex;
+	gap: 0.5rem;
+
+	& button {
+		font-size: inherit;
+		background: transparent;
+		border: medium dotted currentcolor;
+		border-radius: 100vmax;
+		color: var(--base-color);
+		padding: 0.5rem 1rem;
+		text-transform: uppercase;
+		cursor: pointer;
+
+		&:focus {
+			outline: none;
+			color: var(--focus-color);
+		}
+	}
+
+	&:has(button:focus) {
+		outline: medium dashed var(--focus-color);
+	}
+
+	&:hover {
+		outline: medium dashed var(--hover-color);
+		color: var(--hover-color);
+
+		& button { color: var(--hover-color); }
+	}
+
+	& #options-container:popover-open {
+		width: fit-content;
+		max-width: 10rem;
+		height: clamp(2rem, 20vh, 6rem);
+		position: absolute;
+		inset: unset;
+		inset-block-start: 1rem;
+		inset-inline-start: 1rem;
+		margin: 0;
+		overflow: auto;
+
+		border: medium solid var(--base-color);
+		border-radius: 0.5rem;
+		background-color: var(--bg-color);
+	}
+}

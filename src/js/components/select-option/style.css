@@ -8,15 +8,19 @@ button {
 	display: block;
 	border: none;
 	background: transparent;
+	width: 100%;
+	text-align: start;
+
+	border-radius: var(--border-radius-small);
 
 	&:focus {
 		outline: none;
-		background: var(--base-color);
-		color: var(--bg-color);
+		background: var(--focus-color);
+		color: var(--dark-color);
 	}
 
 	&:hover {
-		background: var(--hover-color);
-		color: var(--bg-color);
+		background: var(--theme-color);
+		color: var(--dark-color);
 	}
 }

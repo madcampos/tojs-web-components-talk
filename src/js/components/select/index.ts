@@ -45,8 +45,8 @@ export class CustomSelect extends HTMLElement {
 					<label for="trigger-button">
 						${this.value ? this.value : this.#placeholderText}
 					</label>
-					<button id="trigger-button" popovertarget="options-container" ${this.required ? 'required' : ''}>
-						<slot name="trigger-text">🔽</slot>
+					<button id="trigger-button" popovertarget="options-container" ${this.disabled ? 'disabled' : ''}>
+						<slot name="trigger-text">▽</slot>
 					</button>
 
 					<div popover id="options-container" role="listbox" aria-labeledby="label" tabindex="-1">

@@ -140,6 +140,7 @@ export class CustomSlider extends HTMLElement {
 
 		this.shadowRoot.querySelector('input')?.addEventListener('input', () => {
 			this.value = this.shadowRoot.querySelector('input')?.value ?? '';
+			this.#internals.setFormValue(this.value);
 
 			this.#validate();
 
@@ -148,6 +149,7 @@ export class CustomSlider extends HTMLElement {
 
 		this.shadowRoot.querySelector('input')?.addEventListener('change', () => {
 			this.value = this.shadowRoot.querySelector('input')?.value ?? '';
+			this.#internals.setFormValue(this.value);
 
 			this.#validate();
 

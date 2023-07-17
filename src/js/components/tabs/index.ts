@@ -86,15 +86,15 @@ export class CustomTabs extends HTMLElement {
 		this.#selectTab(selectedTab);
 
 		this.addEventListener('focusin', (evt) => {
-			const tab = (evt.target as HTMLElement).closest('c-tab') as HTMLElement;
+			const tab = (evt.target as HTMLElement).closest<HTMLElement>('c-tab');
 
 			if (tab) {
 				this.#selectTab(tab);
 			}
 		});
 
-		this.addEventListener('keyup', (evt) => {
-			const tab = (evt.target as HTMLElement).closest('c-tab') as HTMLElement;
+		this.addEventListener('keydown', (evt) => {
+			const tab = (evt.target as HTMLElement).closest<HTMLElement>('c-tab');
 
 			if (tab) {
 				const tabs = this.#tabsSlot.assignedElements() as HTMLElement[];

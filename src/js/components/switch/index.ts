@@ -132,6 +132,7 @@ export class CustomSwitch extends HTMLElement {
 
 		this.shadowRoot.querySelector('input')?.addEventListener('input', () => {
 			this.checked = this.shadowRoot.querySelector('input')?.checked ?? false;
+			this.#internals.setFormValue(this.value, this.checked ? 'checked' : undefined);
 
 			this.#validate();
 
@@ -140,6 +141,7 @@ export class CustomSwitch extends HTMLElement {
 
 		this.shadowRoot.querySelector('input')?.addEventListener('change', () => {
 			this.checked = this.shadowRoot.querySelector('input')?.checked ?? false;
+			this.#internals.setFormValue(this.value, this.checked ? 'checked' : undefined);
 
 			this.#validate();
 

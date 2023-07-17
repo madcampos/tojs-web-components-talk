@@ -1,0 +1,80 @@
+:root {
+	--on: ;
+	--off: initial;
+
+	--is-light: var(--on);
+	--is-regular-motion: var(--on);
+
+	--theme-color: greenyellow;
+	--accent-color: lawngreen;
+	--secondary-color: darkslategray;
+	--dark-color: #1d1d1d;
+	--light-color: snow;
+	--gray-color: color-mix(in srgb, dimgray, transparent 50%);
+
+	--text-color: var(--light-color);
+
+	--bg-color: var(--dark-color);
+
+	--focus-color: seagreen;
+	--hover-color: goldenrod;
+	--required-color: maroon;
+
+	--inner-border-normal-color: var(--gray-color);
+	--inner-border-focus-color: var(--light-color);
+	--inner-border-hover-color: var(--theme-color);
+
+	--outer-border-normal-color: var(--light-color);
+	--outer-border-focus-color: var(--focus-color);
+	--outer-border-hover-color: var(--light-color);
+
+	--base-size: 18px;
+
+	--border-small: 0.1rem;
+	--border-medium: 0.15rem;
+	--border-large: 0.2rem;
+
+	--border-radius-small: 0.2rem;
+	--border-radius-medium: 0.4rem;
+	--border-radius-large: 0.8rem;
+
+	--padding-small: 0.2rem;
+	--padding-medium: 0.5rem;
+	--padding-large: 1rem;
+
+	--margin-small: 0.25rem;
+	--margin-medium: 0.5rem;
+	--margin-large: 1rem;
+
+	--required-marker-size: 0.6rem;
+
+	accent-color: var(--theme-color);
+	color-scheme: dark light;
+}
+
+* {
+	box-sizing: border-box;
+	font-family: inherit;
+}
+
+html, body {
+	height: 100%;
+
+	font-size: var(--base-size);
+	line-height: 1.2;
+
+	background-color: var(--bg-color);
+	color: var(--text-color);
+}
+
+:not(:defined) {
+	display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root { --is-light: var(--off); }
+}
+
+@media (prefers-reduced-motion) {
+	:root { --is-regular-motion: var(--off); }
+}

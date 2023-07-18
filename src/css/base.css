@@ -31,8 +31,8 @@
 	--base-size: 18px;
 
 	--border-small: 0.1rem;
-	--border-medium: 0.15rem;
-	--border-large: 0.2rem;
+	--border-medium: 0.2rem;
+	--border-large: 0.3rem;
 
 	--border-radius-small: 0.2rem;
 	--border-radius-medium: 0.4rem;
@@ -52,13 +52,18 @@
 	color-scheme: dark light;
 }
 
-* {
+:root * {
 	box-sizing: border-box;
 	font-family: inherit;
 }
 
-html, body {
+html { height: 100%; }
+
+body {
 	height: 100%;
+	margin: 0;
+	position: absolute;
+	inset: 0;
 
 	font-size: var(--base-size);
 	line-height: 1.2;

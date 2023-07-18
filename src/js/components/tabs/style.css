@@ -1,6 +1,7 @@
 :host {
 	--tabs-size: 2.5rem;
-	--panel--max-size: calc(85vmin - var(--tabs-size));
+	--panel-max-size: calc(85vmin - var(--tabs-size));
+	--panel-min-size: 20rem;
 }
 
 :host * {
@@ -29,7 +30,8 @@
 	overflow: auto;
 	inline-size: 100%;
 	block-size: 100%;
-	max-block-size: var(--panel--max-size);
+	min-block-size: var(--panel-min-size);
+	max-block-size: var(--panel-max-size);
 
 	border: solid var(--border-medium) var(--light-color);
 	border-radius: var(--border-radius-medium);

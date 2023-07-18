@@ -23,7 +23,7 @@ export class CustomTab extends HTMLElement {
 
 		this.shadowRoot.innerHTML = `
 			<link rel="stylesheet" href="${cssLink}">
-			<div>
+			<div id="container">
 				<slot></slot>
 			</div>
 		`;

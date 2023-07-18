@@ -1,4 +1,92 @@
+:host {
+	--regular-tab-inner-border: var(--is-regular-motion) dotted;
+	--reduced-motion-tab-inner-border: solid;
+	--tab-inner-border: var(--regular-tab-inner-border, var(--reduced-motion-tab-inner-border));
+
+	--regular-selected-inner-border: var(--is-regular-motion) dotted;
+	--reduced-motion-selected-inner-border: solid;
+	--selected-inner-border: var(--regular-selected-inner-border, var(--reduced-motion-selected-inner-border));
+
+	--regular-tab-outer-border: var(--is-regular-motion) solid;
+	--reduced-motion-tab-outer-border: solid;
+	--tab-outer-border: var(--regular-tab-outer-border, var(--reduced-motion-tab-outer-border));
+
+	--regular-selected-outer-border: var(--is-regular-motion) solid;
+	--reduced-motion-selected-outer-border: solid;
+	--selected-outer-border: var(--regular-selected-outer-border, var(--reduced-motion-selected-outer-border));
+}
+
 :host * {
 	box-sizing: border-box;
 	font-family: inherit;
+}
+
+:host(:focus-within) { outline: none; }
+
+#container {
+	position: relative;
+	display: flex;
+	align-items: end;
+	margin: var(--margin-medium);
+	margin-block-end: 0;
+	padding: var(--padding-small);
+
+	border: var(--tab-inner-border) var(--border-medium) var(--gray-color);
+	border-block-end-width: 0;
+
+	border-start-start-radius: var(--border-radius-medium);
+	border-start-end-radius: var(--border-radius-medium);
+
+	background-clip: content-box;
+
+	transition: all 0.2s ease-in-out;
+
+	&::before {
+		content: '';
+		display: block;
+		position: absolute;
+		inset: calc(var(--margin-medium) * -1);
+		inset-block-end: 0;
+		pointer-events: none;
+		transition: inherit;
+
+		border: var(--tab-outer-border) var(--border-medium) var(--gray-color);
+		border-block-end-width: 0;
+
+		border-start-start-radius: var(--border-radius-medium);
+		border-start-end-radius: var(--border-radius-medium);
+	}
+}
+
+:host([selected]) #container {
+	font-weight: bold;
+
+	border-style: var(--selected-inner-border);
+	border-color: var(--theme-color);
+
+	padding-block-end: var(--padding-medium);
+
+	&::before {
+		border-style: var(--selected-outer-border);
+		border-color: var(--light-color);
+	}
+}
+
+:host(:focus-within) #container {
+	background-color: var(--focus-color);
+	color: var(--dark-color);
+
+	border-style: var(--selected-outer-border);
+	border-color: var(--light-color);
+
+	&::before {
+		border-style: var(--selected-inner-border);
+		border-color: var(--focus-color);
+	}
+}
+
+:host(:hover) #container {
+	color: var(--light-color);
+	border-color: var(--theme-color);
+	background-color: var(--gray-color);
 }

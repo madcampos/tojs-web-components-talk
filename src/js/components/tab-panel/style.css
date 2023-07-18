@@ -2,3 +2,5 @@
 	box-sizing: border-box;
 	font-family: inherit;
 }
+
+:host(:focus-within) { outline: none; }

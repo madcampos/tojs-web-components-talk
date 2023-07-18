@@ -1,3 +1,8 @@
+:host {
+	--tabs-size: 2.5rem;
+	--panel--max-size: calc(85vmin - var(--tabs-size));
+}
+
 :host * {
 	box-sizing: border-box;
 	font-family: inherit;
@@ -11,16 +16,25 @@
 
 #tabs-wrapper {
 	display: flex;
-	flex-direction: row;
+	align-items: end;
 	justify-content: center;
-	gap: 1rem;
+	gap: var(--padding-medium);
 	inline-size: fit-content;
+	block-size: var(--tabs-size);
 	margin-inline: auto;
 }
 
 #panels-wrapper {
-	padding: 0.5rem;
+	padding: var(--padding-medium);
 	overflow: auto;
-	max-block-size: 20rem;
 	inline-size: 100%;
+	block-size: 100%;
+	max-block-size: var(--panel--max-size);
+
+	border: solid var(--border-medium) var(--light-color);
+	border-radius: var(--border-radius-medium);
+}
+
+#panels-wrapper:focus-within {
+	border-color: var(--focus-color);
 }

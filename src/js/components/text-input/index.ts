@@ -31,9 +31,9 @@ export class CustomTextInput extends HTMLElement {
 		this.shadowRoot.innerHTML = `
 			<link rel="stylesheet" href="${cssLink}">
 			<label for="text-input" id="text-input-container">
-				<h3>
+				<span>
 					<slot></slot>
-				</h3>
+				</span>
 
 				<input type="text" id="text-input" name="text-input" value="${this.value}" placeholder="${this.placeholder}" ${this.disabled ? 'disabled' : ''} ${this.readonly ? 'readonly' : ''} ${this.required ? 'required' : ''} ${this.autocomplete ? 'autocomplete' : ''} ${this.maxLength ? 'maxlength' : ''} ${this.minLength ? 'minlength' : ''}>
 			</label>

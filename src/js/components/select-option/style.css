@@ -17,6 +17,7 @@ button {
 		outline: none;
 		background: var(--focus-color);
 		color: var(--dark-color);
+		font-weight: bold;
 	}
 
 	&:hover {

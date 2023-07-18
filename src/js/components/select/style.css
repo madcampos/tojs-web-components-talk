@@ -6,11 +6,11 @@
 	--regular-inline-border: var(--is-regular-motion) solid;
 	--reduced-motion-inline-border: solid;
 	--inline-border: var(--regular-inline-border, var(--reduced-motion-inline-border));
+}
 
-	& * {
-		box-sizing: border-box;
-		font-family: inherit;
-	}
+:host * {
+	box-sizing: border-box;
+	font-family: inherit;
 }
 
 :host([disabled]) #combobox-container {
@@ -48,14 +48,14 @@
 	position: relative;
 	display: flex;
 	width: fit-content;
+	align-items: center;
 	gap: var(--padding-medium);
 	margin: var(--margin-medium);
-	align-items: center;
+	padding: var(--padding-small);
 
 	border: var(--inline-border) var(--border-medium) var(--inner-border-normal-color);
 	border-block-style: var(--block-border);
 	border-radius: 100vmax;
-	padding: var(--padding-small);
 
 	background-clip: content-box;
 
@@ -66,12 +66,11 @@
 		display: block;
 		position: absolute;
 		inset: calc(var(--margin-medium) * -1);
+		pointer-events: none;
+		transition: inherit;
 
 		border: var(--inline-border) var(--border-medium) var(--outer-border-normal-color);
 		border-radius: 100vmax;
-		pointer-events: none;
-
-		transition: all 0.2s ease-in-out;
 	}
 
 	& label {

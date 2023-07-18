@@ -1,5 +1,12 @@
+import type { CustomStatusChanger } from '../status-changer';
+
 import cssLink from './style.css?url';
 
+/**
+ * A avatar element that shows an image with border and optionally a status for a user.
+ *
+ * @element c-avatar
+ */
 export class CustomAvatar extends HTMLElement {
 	static get observedAttributes() { return ['image', 'status']; }
 
@@ -15,11 +22,19 @@ export class CustomAvatar extends HTMLElement {
 				<div id="image-wrapper">
 					<img src="${this.image}" role="presentation" loading="lazy" />
 				</div>
-				<div id="status"></div>
+				<div id="status" ${!this.status ? 'hidden' : ''}>
+					<c-status-changer value="${this.status}" disabled></c-status-changer>
+				</div>
 			</div>
 		`;
 	}
 
+	/**
+	 * The image to show in the avatar.
+	 *
+	 * @type {string}
+	 * @attr image
+	 */
 	get image() {
 		return this.getAttribute('image') ?? '';
 	}
@@ -32,6 +47,12 @@ export class CustomAvatar extends HTMLElement {
 		img.src = value;
 	}
 
+	/**
+	 * The status to show in the avatar.
+	 *
+	 * @type {"Online" | "Busy" | "Away" | "Offline"}
+	 * @attr status
+	 */
 	get status() {
 		return this.getAttribute('status') ?? '';
 	}
@@ -41,8 +62,15 @@ export class CustomAvatar extends HTMLElement {
 
 		const status = this.shadowRoot.querySelector('#status') as HTMLDivElement;
 
-		status.className = value;
-		status.innerHTML = value;
+		if (value) {
+			status.removeAttribute('hidden');
+
+			const statusChanger = status.querySelector('c-status-changer') as CustomStatusChanger;
+
+			statusChanger.value = value;
+		} else {
+			status.setAttribute('hidden', '');
+		}
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string) {

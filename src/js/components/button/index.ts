@@ -1,5 +1,12 @@
 import cssLink from './style.css?url';
 
+/**
+ * A custom button element.
+ *
+ * @slot - The button's content.
+ *
+ * @element c-button
+ */
 export class CustomButton extends HTMLElement {
 	static get observedAttributes() { return ['disabled', 'type']; }
 	static formAssociated = true;
@@ -10,7 +17,7 @@ export class CustomButton extends HTMLElement {
 	constructor() {
 		super();
 
-		this.attachShadow({ mode: 'open' });
+		this.attachShadow({ mode: 'open', delegatesFocus: true });
 		this.#internals = this.attachInternals();
 
 		this.#internals.role = 'button';
@@ -26,6 +33,13 @@ export class CustomButton extends HTMLElement {
 		`;
 	}
 
+	/**
+	 * Whether the button is disabled.
+	 *
+	 * @type {boolean}
+	 * @attr disabled
+	 * @default false
+	 */
 	get disabled() {
 		return this.hasAttribute('disabled');
 	}
@@ -35,6 +49,13 @@ export class CustomButton extends HTMLElement {
 		this.shadowRoot.querySelector('button')?.toggleAttribute('disabled', value);
 	}
 
+	/**
+	 * The button's type.
+	 *
+	 * @type {'button' | 'submit' | 'reset'}
+	 * @attr type
+	 * @default button
+	 */
 	get type() {
 		return this.getAttribute('type') ?? 'button';
 	}

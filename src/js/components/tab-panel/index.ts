@@ -1,5 +1,12 @@
 import cssLink from './style.css?url';
 
+/**
+ * A custom tab panel element, it is used in conjunction with the tab and the tabs container element.
+ *
+ * @slot - The content of the tab panel.
+ *
+ * @element c-tab-panel
+ */
 export class CustomTabPanel extends HTMLElement {
 	static get observedAttributes() { return ['selected', 'tab']; }
 
@@ -24,6 +31,13 @@ export class CustomTabPanel extends HTMLElement {
 		`;
 	}
 
+	/**
+	 * Whether or not the tab panel is selected.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr selected
+	 */
 	get selected() {
 		return this.#internals.ariaSelected === 'true';
 	}
@@ -35,6 +49,13 @@ export class CustomTabPanel extends HTMLElement {
 		this.hidden = !value;
 	}
 
+	/**
+	 * The id of the tab that controls this tab panel.
+	 *
+	 * @type {string}
+	 * @default ''
+	 * @attr tab
+	 */
 	get tab() {
 		return this.getAttribute('tab') ?? '';
 	}

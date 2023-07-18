@@ -1,5 +1,15 @@
 import cssLink from './style.css?url';
 
+/**
+ * Custom card layout with image, title, subtitle, content and like/share buttons.
+ *
+ * @slot - The content of the card.
+ * @slot title - The title of the card.
+ * @slot subtitle - The subtitle of the card.
+ * @slot image - The image of the card.
+ *
+ * @element c-card
+ */
 export class CustomCard extends HTMLElement {
 	declare shadowRoot: ShadowRoot;
 
@@ -36,11 +46,11 @@ export class CustomCard extends HTMLElement {
 			like.disabled = true;
 
 			try {
-				like.classList.toggle('active');
+				like.classList.toggle('liked');
 
 				this.dispatchEvent(new CustomEvent<{ state: boolean, id: string }>('like', {
 					detail: {
-						state: like.classList.contains('active'),
+						state: like.classList.contains('liked'),
 						id: this.getAttribute('user-id') ?? ''
 					}
 				}));

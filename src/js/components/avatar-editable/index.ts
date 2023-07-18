@@ -2,9 +2,15 @@ import { CustomAvatar } from '../avatar';
 
 import cssLink from './style.css?url';
 
+/**
+ * The editable version of the avatar component, adds the ability to change the avatar image.
+ *
+ * @element c-avatar-editable
+ */
 export class CustomAvatarEditable extends CustomAvatar {
 	static get observedAttributes() { return [...super.observedAttributes, 'editable']; }
 
+	/** The edit overlay element. */
 	#editOverlay: HTMLDivElement;
 
 	constructor() {
@@ -19,6 +25,8 @@ export class CustomAvatarEditable extends CustomAvatar {
 			</div>
 		`);
 
+		this.shadowRoot.querySelector('c-status-changer')?.removeAttribute('disabled');
+
 		this.#editOverlay = this.shadowRoot.querySelector('#edit-overlay') as HTMLDivElement;
 
 		if (!this.hasAttribute('editable')) {
@@ -26,6 +34,12 @@ export class CustomAvatarEditable extends CustomAvatar {
 		}
 	}
 
+	/**
+	 * Whether the avatar is editable or not.
+	 *
+	 * @type {boolean}
+	 * @attr editable
+	 */
 	get editable() {
 		return this.hasAttribute('editable');
 	}

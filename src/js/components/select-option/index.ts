@@ -1,5 +1,14 @@
 import cssLink from './style.css?url';
 
+/**
+ * The options custom element to accompany the custom select element.
+ *
+ * @fires selected - The option was selected.
+ *
+ * @slot - The option's content.
+ *
+ * @element c-select-option
+ */
 export class CustomSelectOption extends HTMLElement {
 	static get observedAttributes() { return ['value', 'disabled']; }
 	static formAssociated = true;
@@ -24,6 +33,12 @@ export class CustomSelectOption extends HTMLElement {
 		`;
 	}
 
+	/**
+	 * The value of the option.
+	 *
+	 * @type {string}
+	 * @attr value
+	 */
 	get value() {
 		return this.getAttribute('value') ?? '';
 	}
@@ -32,6 +47,13 @@ export class CustomSelectOption extends HTMLElement {
 		this.setAttribute('value', value);
 	}
 
+	/**
+	 * Whether the option is disabled.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr disabled
+	 */
 	get disabled() {
 		return this.hasAttribute('disabled');
 	}
@@ -40,6 +62,13 @@ export class CustomSelectOption extends HTMLElement {
 		this.toggleAttribute('disabled', value);
 	}
 
+	/**
+	 * Whether the option is selected.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr selected
+	 */
 	get selected() {
 		return this.#internals.ariaSelected === 'true';
 	}

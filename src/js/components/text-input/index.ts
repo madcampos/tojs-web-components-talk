@@ -1,5 +1,15 @@
 import cssLink from './style.css?url';
 
+/**
+ * A custom text input element.
+ *
+ * @fires input - The value of the input changed.
+ * @fires change - The value of the input changed and the user has finished changing the value.
+*
+ * @slot - The input's label.
+ *
+ * @element c-text-input
+ */
 export class CustomTextInput extends HTMLElement {
 	static get observedAttributes() { return ['value', 'placeholder', 'disabled', 'readonly', 'required', 'autocomplete', 'maxlength', 'minlength']; }
 	static formAssociated = true;
@@ -30,6 +40,12 @@ export class CustomTextInput extends HTMLElement {
 		`;
 	}
 
+	/**
+	 * The value of the input.
+	 *
+	 * @type {string}
+	 * @attr value
+	 */
 	get value() {
 		return this.getAttribute('value') ?? '';
 	}
@@ -39,6 +55,12 @@ export class CustomTextInput extends HTMLElement {
 		this.shadowRoot.querySelector('input')?.setAttribute('value', value);
 	}
 
+	/**
+	 * The placeholder to show on the input.
+	 *
+	 * @type {string}
+	 * @attr placeholder
+	 */
 	get placeholder() {
 		return this.getAttribute('placeholder') ?? '';
 	}
@@ -49,6 +71,13 @@ export class CustomTextInput extends HTMLElement {
 		this.#internals.ariaPlaceholder = value;
 	}
 
+	/**
+	 * Whether or not the input is disabled.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr disabled
+	 */
 	get disabled() {
 		return this.hasAttribute('disabled');
 	}
@@ -58,6 +87,13 @@ export class CustomTextInput extends HTMLElement {
 		this.shadowRoot.querySelector('input')?.setAttribute('disabled', value.toString());
 	}
 
+	/**
+	 * Whether or not the input is readonly.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr readonly
+	 */
 	get readonly() {
 		return this.hasAttribute('readonly');
 	}
@@ -67,6 +103,13 @@ export class CustomTextInput extends HTMLElement {
 		this.shadowRoot.querySelector('input')?.setAttribute('readonly', value.toString());
 	}
 
+	/**
+	 * Whether or not the input is required.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr required
+	 */
 	get required() {
 		return this.hasAttribute('required');
 	}
@@ -77,6 +120,13 @@ export class CustomTextInput extends HTMLElement {
 		this.#internals.ariaRequired = value.toString();
 	}
 
+	/**
+	 * Whether or not the input should autocomplete.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr autocomplete
+	 */
 	get autocomplete() {
 		return this.hasAttribute('autocomplete');
 	}
@@ -86,22 +136,38 @@ export class CustomTextInput extends HTMLElement {
 		this.shadowRoot.querySelector('input')?.setAttribute('autocomplete', value.toString());
 	}
 
+	/**
+	 * The maximum length of the input.
+	 *
+	 * @type {number}
+	 * @attr maxlength
+	 */
 	get maxLength() {
-		return this.getAttribute('maxlength') ?? '';
+		return Number.parseInt(this.getAttribute('maxlength') ?? '');
 	}
 
-	set maxLength(value: string) {
-		this.setAttribute('maxlength', value);
-		this.shadowRoot.querySelector('input')?.setAttribute('maxlength', value);
+	set maxLength(value: number) {
+		const valueString = value.toString();
+
+		this.setAttribute('maxlength', valueString);
+		this.shadowRoot.querySelector('input')?.setAttribute('maxlength', valueString);
 	}
 
+	/**
+	 * The minimum length of the input.
+	 *
+	 * @type {number}
+	 * @attr minlength
+	 */
 	get minLength() {
-		return this.getAttribute('minlength') ?? '';
+		return Number.parseInt(this.getAttribute('minlength') ?? '');
 	}
 
-	set minLength(value: string) {
-		this.setAttribute('minlength', value);
-		this.shadowRoot.querySelector('input')?.setAttribute('minlength', value);
+	set minLength(value: number) {
+		const valueString = value.toString();
+
+		this.setAttribute('minlength', valueString);
+		this.shadowRoot.querySelector('input')?.setAttribute('minlength', valueString);
 	}
 
 	get form() { return this.#internals.form; }
@@ -117,8 +183,8 @@ export class CustomTextInput extends HTMLElement {
 	#validate() {
 		let message = '';
 		const valueMissing = this.required && this.value === '';
-		const tooLong = this.maxLength !== undefined && this.value.length > Number.parseInt(this.maxLength);
-		const tooShort = this.minLength !== undefined && this.value.length < Number.parseInt(this.minLength);
+		const tooLong = this.maxLength !== undefined && this.value.length > this.maxLength;
+		const tooShort = this.minLength !== undefined && this.value.length < this.minLength;
 
 		if (tooLong || tooShort) {
 			message = 'Invalid value';
@@ -155,7 +221,14 @@ export class CustomTextInput extends HTMLElement {
 
 			this.#validate();
 
-			this.dispatchEvent(new CustomEvent('input', { bubbles: true, composed: true, cancelable: true }));
+			this.dispatchEvent(new InputEvent('input', {
+				bubbles: true,
+				composed: true,
+				cancelable: true,
+				data: this.value,
+				isComposing: false,
+				inputType: 'insertText'
+			}));
 		});
 
 		this.shadowRoot.querySelector('input')?.addEventListener('change', () => {
@@ -164,21 +237,25 @@ export class CustomTextInput extends HTMLElement {
 
 			this.#validate();
 
-			this.dispatchEvent(new CustomEvent('change', { bubbles: true, composed: true, cancelable: true }));
+			this.dispatchEvent(new Event('change', {
+				bubbles: true,
+				composed: true,
+				cancelable: true
+			}));
 		});
 	}
 
-	attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+	attributeChangedCallback(name: string, oldValue?: string, newValue?: string) {
 		if (oldValue === newValue) {
 			return;
 		}
 
 		switch (name) {
 			case 'value':
-				this.value = newValue;
+				this.value = newValue ?? '';
 				break;
 			case 'placeholder':
-				this.placeholder = newValue;
+				this.placeholder = newValue ?? '';
 				break;
 			case 'disabled':
 				this.disabled = newValue !== null;
@@ -193,10 +270,10 @@ export class CustomTextInput extends HTMLElement {
 				this.autocomplete = newValue !== null;
 				break;
 			case 'maxlength':
-				this.maxLength = newValue;
+				this.maxLength = Number.parseInt(newValue ?? '');
 				break;
 			case 'minlength':
-				this.minLength = newValue;
+				this.minLength = Number.parseInt(newValue ?? '');
 				break;
 			default:
 		}

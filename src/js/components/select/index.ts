@@ -2,6 +2,18 @@ import type { CustomSelectOption } from '../select-option';
 
 import cssLink from './style.css?url';
 
+/**
+ * A custom select element that displays a list of options.
+ * The options are displayed in a popover.
+ *
+ * @fires change - Fires when the selected option changes.
+ *
+ * @slot - The select's options.
+ * @slot label - The select's label.
+ * @slot trigger-button - The content of the button that trigger the popover.
+ *
+ * @element c-select
+ */
 export class CustomSelect extends HTMLElement {
 	static get observedAttributes() { return ['value', 'disabled', 'required']; }
 	static formAssociated = true;
@@ -9,18 +21,27 @@ export class CustomSelect extends HTMLElement {
 	declare shadowRoot: ShadowRoot;
 	#internals: ElementInternals;
 
+	/** Controls if the popover is visible or not. */
 	#isPopoverVisible = false;
+	/** Placeholder text to show when no option is selected. */
 	#placeholderText = 'Select an option...';
+
+	/** The number of options to move when using the PageUp and PageDown keys to navigate. */
 	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 	#PAGE_SIZE = 10;
-
+	/** A string used to keep track of the current typed search string. */
 	#searchString = '';
-	#searchTimeout: number | null = null;
+	/** A reference to the setTimeout timer to reset the type search. */
+	#searchTimeoutTimer: number | null = null;
+	/** The number of milliseconds to wait before resetting the type search. */
 	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 	#DEFAULT_SEARCH_TIMEOUT = 500;
 
+	/** The options default slot element, holding the list of options. */
 	#optionsSlot: HTMLSlotElement;
+	/** The element that displays the selected option. */
 	#selectedOption: HTMLLabelElement;
+	/** The popover element that holds the list of options. */
 	#optionsList: HTMLElement;
 
 	constructor() {
@@ -61,6 +82,12 @@ export class CustomSelect extends HTMLElement {
 		this.#optionsList = this.shadowRoot.querySelector<HTMLElement>('[popover]') as HTMLElement;
 	}
 
+	/**
+	 * The value of the select.
+	 *
+	 * @type {string}
+	 * @attr value
+	 */
 	get value() {
 		return this.getAttribute('value') ?? '';
 	}
@@ -74,6 +101,13 @@ export class CustomSelect extends HTMLElement {
 		this.#selectedOption.textContent = selectedOption?.textContent ?? this.#placeholderText;
 	}
 
+	/**
+	 * Whether the select is disabled or not.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr disabled
+	 */
 	get disabled() {
 		return this.hasAttribute('disabled');
 	}
@@ -83,6 +117,13 @@ export class CustomSelect extends HTMLElement {
 		this.shadowRoot.querySelector('button')?.toggleAttribute('disabled', value);
 	}
 
+	/**
+	 * Whether the select is required or not.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr required
+	 */
 	get required() {
 		return this.hasAttribute('required');
 	}
@@ -224,11 +265,11 @@ export class CustomSelect extends HTMLElement {
 		let index = selectedIndex;
 
 		if (key === 'Backspace' || key === 'Clear' || (key.length === 1 && key !== ' ' && !altKey && !ctrlKey && !metaKey)) {
-			if (typeof this.#searchTimeout === 'number') {
-				window.clearTimeout(this.#searchTimeout);
+			if (typeof this.#searchTimeoutTimer === 'number') {
+				window.clearTimeout(this.#searchTimeoutTimer);
 			}
 
-			this.#searchTimeout = window.setTimeout(() => {
+			this.#searchTimeoutTimer = window.setTimeout(() => {
 				this.#searchString = '';
 			}, this.#DEFAULT_SEARCH_TIMEOUT);
 
@@ -302,7 +343,11 @@ export class CustomSelect extends HTMLElement {
 
 			this.#optionsList.hidePopover();
 
-			this.dispatchEvent(new Event('change', { bubbles: true, composed: true, cancelable: true }));
+			this.dispatchEvent(new Event('change', {
+				bubbles: true,
+				composed: true,
+				cancelable: true
+			}));
 		});
 
 		this.addEventListener('keydown', (evt) => {

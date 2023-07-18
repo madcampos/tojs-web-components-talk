@@ -1,5 +1,16 @@
 import cssLink from './style.css?url';
 
+/**
+ * A custom on/off switch element.
+ *
+ * @fires input - Fires when the user has changed the value.
+ * @fires change - Fires when the user has finished changing the value.
+ *
+ * @slot - The switch's label.
+ * @slot description - The switch's description.
+ *
+ * @element c-switch
+ */
 export class CustomSwitch extends HTMLElement {
 	static get observedAttributes() { return ['value', 'checked', 'required', 'disabled', 'readonly']; }
 	static formAssociated = true;
@@ -43,6 +54,12 @@ export class CustomSwitch extends HTMLElement {
 		`;
 	}
 
+	/**
+	 * The value of the switch.
+	 *
+	 * @type {string}
+	 * @attr value
+	 */
 	get value() {
 		return this.getAttribute('value') ?? 'on';
 	}
@@ -52,6 +69,13 @@ export class CustomSwitch extends HTMLElement {
 		this.shadowRoot.querySelector('input')?.setAttribute('value', value);
 	}
 
+	/**
+	 * Whether the switch is checked or not.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr checked
+	 */
 	get checked() {
 		return this.hasAttribute('checked');
 	}
@@ -62,6 +86,13 @@ export class CustomSwitch extends HTMLElement {
 		this.shadowRoot.querySelector('input')?.toggleAttribute('checked', value);
 	}
 
+	/**
+	 * Whether the switch is required or not.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr required
+	 */
 	get required() {
 		return this.hasAttribute('required');
 	}
@@ -72,6 +103,13 @@ export class CustomSwitch extends HTMLElement {
 		this.shadowRoot.querySelector('input')?.toggleAttribute('required', value);
 	}
 
+	/**
+	 * Whether the switch is disabled or not.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr disabled
+	 */
 	get disabled() {
 		return this.hasAttribute('disabled');
 	}
@@ -82,6 +120,13 @@ export class CustomSwitch extends HTMLElement {
 		this.shadowRoot.querySelector('input')?.toggleAttribute('disabled', value);
 	}
 
+	/**
+	 * Whether the switch is readonly or not.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr readonly
+	 */
 	get readonly() {
 		return this.hasAttribute('readonly');
 	}
@@ -136,7 +181,14 @@ export class CustomSwitch extends HTMLElement {
 
 			this.#validate();
 
-			this.dispatchEvent(new CustomEvent('input', { bubbles: true, composed: true, cancelable: true }));
+			this.dispatchEvent(new InputEvent('input', {
+				bubbles: true,
+				composed: true,
+				cancelable: true,
+				data: this.value,
+				isComposing: false,
+				inputType: 'insertText'
+			}));
 		});
 
 		this.shadowRoot.querySelector('input')?.addEventListener('change', () => {
@@ -145,7 +197,11 @@ export class CustomSwitch extends HTMLElement {
 
 			this.#validate();
 
-			this.dispatchEvent(new CustomEvent('change', { bubbles: true, composed: true, cancelable: true }));
+			this.dispatchEvent(new Event('change', {
+				bubbles: true,
+				composed: true,
+				cancelable: true
+			}));
 		});
 	}
 

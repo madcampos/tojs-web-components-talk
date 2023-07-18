@@ -1,12 +1,25 @@
 import cssLink from './style.css?url';
 
+/**
+ * A custom tabs container element, it is used in conjunction with the tab and the tab panel elements.
+ * This element controls the navigation between the tabs and their panels.
+ *
+ * It will also crate and addign an id to the tabs and panels if they do not have one already.
+ *
+ * @slot tabs - The tabs to display.
+ * @slot panels - The panels to display.
+ *
+ * @element c-tabs
+ */
 export class CustomTabs extends HTMLElement {
 	static get observedAttributes() { return ['selected']; }
 
 	declare shadowRoot: ShadowRoot;
 	#internals: ElementInternals;
 
+	/** The slot element containing the tabs */
 	#tabsSlot: HTMLSlotElement;
+	/** The slot element containing the panels */
 	#panelsSlot: HTMLSlotElement;
 
 	constructor() {
@@ -39,6 +52,13 @@ export class CustomTabs extends HTMLElement {
 		}
 	}
 
+	/**
+	 * The id of the tab that is currently selected.
+	 * Defaults to the first tab if no tab id is provided
+	 *
+	 * @type {string}
+	 * @attr selected
+	 */
 	get selected() {
 		return this.getAttribute('selected') ?? '';
 	}

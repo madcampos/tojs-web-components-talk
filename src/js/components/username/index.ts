@@ -2,9 +2,18 @@ import { CustomTextInput } from '../text-input';
 
 import cssLink from './style.css?url';
 
+/**
+ * An extension of the text input element to handle usernames.
+ * It will append a random 4 digit number to the end of the username, like discord.
+ *
+ * @element c-username-input
+ */
 export class CustomUsernameInput extends CustomTextInput {
 	static get observedAttributes() { return [...super.observedAttributes, 'user-hash']; }
 
+	/**
+	 * The random 4 digit number appended to the end of the username.
+	 */
 	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 	#userHash = Math.random().toString().substring(4, 8);
 
@@ -13,9 +22,16 @@ export class CustomUsernameInput extends CustomTextInput {
 
 		this.shadowRoot.querySelector('style')?.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${cssLink}">`);
 
-		this.shadowRoot.querySelector('input')?.insertAdjacentHTML('afterend', '<span id="username-hash"></span>');
+		this.shadowRoot.querySelector('input')?.insertAdjacentHTML('afterend', `<span id="username-hash">${this.userHash}</span>`);
 	}
 
+	/**
+	 * The random 4 digit number appended to the end of the username.
+	 * Defaults to a random number.
+	 *
+	 * @type {string}
+	 * @attr user-hash
+	 */
 	get userHash() {
 		return this.getAttribute('user-hash') ?? this.#userHash;
 	}

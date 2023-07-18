@@ -1,5 +1,16 @@
 import cssLink from './style.css?url';
 
+/**
+ * A custom slider element that allows the user to select a value from a range.
+ *
+ * @fires input - Fires when the user has changed the value.
+ * @fires change - Fires when the user has finished changing the value.
+ *
+ * @slot - The slider's label.
+ * @slot description - The slider's description.
+ *
+ * @element c-slider
+ */
 export class CustomSlider extends HTMLElement {
 	static get observedAttributes() { return ['value', 'min', 'max', 'step', 'disabled', 'readonly']; }
 	static formAssociated = true;
@@ -14,8 +25,8 @@ export class CustomSlider extends HTMLElement {
 		this.#internals = this.attachInternals();
 
 		this.#internals.role = 'slider';
-		this.#internals.ariaValueMin = this.min;
-		this.#internals.ariaValueMax = this.max;
+		this.#internals.ariaValueMin = this.min.toString();
+		this.#internals.ariaValueMax = this.max.toString();
 		this.#internals.ariaValueNow = this.value;
 
 		this.shadowRoot.innerHTML = `
@@ -34,6 +45,12 @@ export class CustomSlider extends HTMLElement {
 		`;
 	}
 
+	/**
+	 * The value of the slider.
+	 *
+	 * @type {string}
+	 * @attr value
+	 */
 	get value() {
 		return this.getAttribute('value') ?? '50';
 	}
@@ -44,35 +61,69 @@ export class CustomSlider extends HTMLElement {
 		this.#internals.ariaValueNow = value;
 	}
 
+	/**
+	 * The minimum value of the slider.
+	 *
+	 * @type {number}
+	 * @default 0
+	 * @attr min
+	 */
 	get min() {
-		return this.getAttribute('min') ?? '0';
+		return Number.parseFloat(this.getAttribute('min') ?? '0');
 	}
 
-	set min(value: string) {
-		this.setAttribute('min', value);
-		this.shadowRoot.querySelector('input')?.setAttribute('min', value);
-		this.#internals.ariaValueMin = value;
+	set min(value: number) {
+		const valueString = value.toString();
+
+		this.setAttribute('min', valueString);
+		this.shadowRoot.querySelector('input')?.setAttribute('min', valueString);
+		this.#internals.ariaValueMin = valueString;
 	}
 
+	/**
+	 * The maximum value of the slider.
+	 *
+	 * @type {number}
+	 * @default 100
+	 * @attr max
+	 */
 	get max() {
-		return this.getAttribute('max') ?? '100';
+		return Number.parseFloat(this.getAttribute('max') ?? '100');
 	}
 
-	set max(value: string) {
-		this.setAttribute('max', value);
-		this.shadowRoot.querySelector('input')?.setAttribute('max', value);
-		this.#internals.ariaValueMax = value;
+	set max(value: number) {
+		const valueString = value.toString();
+
+		this.setAttribute('max', valueString);
+		this.shadowRoot.querySelector('input')?.setAttribute('max', valueString);
+		this.#internals.ariaValueMax = valueString;
 	}
 
+	/**
+	 * The step value of the slider.
+	 *
+	 * @type {number}
+	 * @default 1
+	 * @attr step
+	 */
 	get step() {
-		return this.getAttribute('step') ?? '1';
+		return Number.parseFloat(this.getAttribute('step') ?? '1');
 	}
 
-	set step(value: string) {
-		this.setAttribute('step', value);
-		this.shadowRoot.querySelector('input')?.setAttribute('step', value);
+	set step(value: number) {
+		const valueString = value.toString();
+
+		this.setAttribute('step', valueString);
+		this.shadowRoot.querySelector('input')?.setAttribute('step', valueString);
 	}
 
+	/**
+	 * Whether the slider is disabled.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr disabled
+	 */
 	get disabled() {
 		return this.hasAttribute('disabled');
 	}
@@ -82,6 +133,13 @@ export class CustomSlider extends HTMLElement {
 		this.shadowRoot.querySelector('input')?.toggleAttribute('disabled', value);
 	}
 
+	/**
+	 * Whether the slider is readonly.
+	 *
+	 * @type {boolean}
+	 * @default false
+	 * @attr readonly
+	 */
 	get readonly() {
 		return this.hasAttribute('readonly');
 	}
@@ -106,7 +164,7 @@ export class CustomSlider extends HTMLElement {
 		const valueMissing = this.value === '';
 		const value = Number(this.value);
 
-		const stepMismatch = this.step !== undefined && (value % Number.parseFloat(this.step) !== 0);
+		const stepMismatch = this.step !== undefined && (value % this.step !== 0);
 		const badInput = Number.isNaN(value);
 
 		if (stepMismatch || badInput) {
@@ -144,7 +202,14 @@ export class CustomSlider extends HTMLElement {
 
 			this.#validate();
 
-			this.dispatchEvent(new CustomEvent('input', { bubbles: true, composed: true, cancelable: true }));
+			this.dispatchEvent(new InputEvent('input', {
+				bubbles: true,
+				composed: true,
+				cancelable: true,
+				data: this.value,
+				isComposing: false,
+				inputType: 'insertText'
+			}));
 		});
 
 		this.shadowRoot.querySelector('input')?.addEventListener('change', () => {
@@ -153,27 +218,31 @@ export class CustomSlider extends HTMLElement {
 
 			this.#validate();
 
-			this.dispatchEvent(new CustomEvent('change', { bubbles: true, composed: true, cancelable: true }));
+			this.dispatchEvent(new Event('change', {
+				bubbles: true,
+				composed: true,
+				cancelable: true
+			}));
 		});
 	}
 
-	attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+	attributeChangedCallback(name: string, oldValue?: string, newValue?: string) {
 		if (oldValue === newValue) {
 			return;
 		}
 
 		switch (name) {
 			case 'value':
-				this.value = newValue;
+				this.value = newValue ?? '50';
 				break;
 			case 'min':
-				this.min = newValue;
+				this.min = Number.parseFloat(newValue ?? '0');
 				break;
 			case 'max':
-				this.max = newValue;
+				this.max = Number.parseFloat(newValue ?? '100');
 				break;
 			case 'step':
-				this.step = newValue;
+				this.step = Number.parseFloat(newValue ?? '1');
 				break;
 			case 'disabled':
 				this.disabled = newValue !== null;

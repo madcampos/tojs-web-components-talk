@@ -63,6 +63,84 @@
 
 	<body>
 		<main>
+			<c-tabs>
+				<c-tab slot="tabs">🤖 Profile</c-tab>
+				<c-tab-panel slot="panels">
+					<form action="#">
+						<c-card hide-buttons>
+							<c-avatar-editable slot="image" status="Online"></c-avatar-editable>
+							<c-username-input slot="title" placeholder="Add your username here...">
+								<span>Username</span>
+							</c-username-input>
+
+							<c-text-input placeholder="E.g.: They/them, He/His">
+								<span slot="label">Pronoums</span>
+							</c-text-input>
+
+							<c-button>❌ Cancel</c-button>
+							<c-button>💾 Save</c-button>
+						</c-card>
+					</form>
+				</c-tab-panel>
+
+				<c-tab slot="tabs">🛠️ Settings</c-tab>
+				<c-tab-panel slot="panels">
+					<c-slider>
+						<span>Volume</span>
+						<span slot="description">Change the game general sound</span>
+					</c-slider>
+
+					<c-switch value="light-mode">
+						<span>Light Mode</span>
+						<span slot="description">Enable <em>light</em> mode</span>
+					</c-switch>
+
+					<c-select>
+						<span slot="label">Language</span>
+						<c-select-option>English</c-select-option>
+						<c-select-option>French</c-select-option>
+						<c-select-option>Brazilian Portuguese</c-select-option>
+					</c-select>
+
+					<c-switch value="track">
+						<span>Enable ad tracking</span>
+						<span slot="description">Enable <em>ad tracking</em>. Privacy is the default</span>
+					</c-switch>
+
+					<c-switch value="notifications">
+						<span>Enable notifications</span>
+						<span slot="description">Enable <em>notifications</em> for new messages</span>
+					</c-switch>
+				</c-tab-panel>
+
+				<c-tab slot="tabs">⭐ Friends</c-tab>
+				<c-tab-panel slot="panels">
+					<!-- TODO: generate programatically -->
+				</c-tab-panel>
+
+				<c-tab slot="tabs">🪙 Store</c-tab>
+				<c-tab-panel slot="panels">
+					<fieldset>
+						<legend>Credits</legend>
+
+						<c-purchase-card title="5 Credits" price="1"></c-purchase-card>
+						<c-purchase-card title="10 Credits" price="1.5"></c-purchase-card>
+						<c-purchase-card title="20 Credits" price="2"></c-purchase-card>
+						<c-purchase-card title="50 Credits" price="5"></c-purchase-card>
+						<c-purchase-card title="100 Credits" price="8"></c-purchase-card>
+						<c-purchase-card title="1000 Credits" price="85"></c-purchase-card>
+					</fieldset>
+
+					<fieldset>
+						<legend>Premium</legend>
+
+						<c-purchase-card title="1 Month" price="10"></c-purchase-card>
+						<c-purchase-card title="3 Months" price="25"></c-purchase-card>
+						<c-purchase-card title="6 Months" price="45"></c-purchase-card>
+						<c-purchase-card title="1 Year" price="95"></c-purchase-card>
+					</fieldset>
+				</c-tab-panel>
+			</c-tabs>
 		</main>
 
 		<script src="js/main.ts" type="module" defer async></script>

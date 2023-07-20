@@ -1,4 +1,100 @@
+:host {
+	--regular-block-border: var(--is-regular-motion) dotted;
+	--reduced-motion-block-border: solid;
+	--block-border: var(--regular-block-border, var(--reduced-motion-block-border));
+
+	--regular-inline-border: var(--is-regular-motion) solid;
+	--reduced-motion-inline-border: solid;
+	--inline-border: var(--regular-inline-border, var(--reduced-motion-inline-border));
+}
+
 :host * {
 	box-sizing: border-box;
 	font-family: inherit;
+}
+
+:host([disabled]) #container {
+	pointer-events: none;
+	color: var(--gray-color);
+
+	&::before { border-color: var(--gray-color); }
+}
+
+#container {
+	position: relative;
+	display: inline-flex;
+	width: fit-content;
+	align-items: center;
+	gap: var(--padding-medium);
+	margin: var(--margin-large);
+	padding: var(--padding-small);
+
+	border: var(--inline-border) var(--border-medium) var(--inner-border-normal-color);
+	border-block-style: var(--block-border);
+	border-radius: 100vmax;
+
+	background-clip: content-box;
+
+	transition: all 0.2s ease-in-out;
+
+	&::before {
+		content: '';
+		display: block;
+		position: absolute;
+		inset: calc(var(--margin-medium) * -1);
+		pointer-events: none;
+		transition: inherit;
+
+		border: var(--inline-border) var(--border-medium) var(--outer-border-normal-color);
+		border-radius: 100vmax;
+	}
+
+	& button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 2rem;
+
+		font-size: inherit;
+		background: transparent;
+		border: none;
+
+		color: currentcolor;
+		padding: var(--padding-small);
+		text-transform: uppercase;
+		cursor: pointer;
+
+		&:focus { outline: none; }
+	}
+
+	&:focus-within {
+		border-color: var(--inner-border-focus-color);
+		background-color: var(--outer-border-focus-color);
+		color: var(--dark-color);
+
+		& button {
+			font-weight: bold;
+		}
+
+		&::before {
+			border-color: var(--outer-border-focus-color);
+			border-block-style: var(--block-border);
+		}
+	}
+
+	&:hover {
+		border-color: var(--inner-border-hover-color);
+		background-color: var(--gray-color);
+		color: var(--light-color);
+
+		&::before { border-color: var(--outer-border-hover-color); }
+	}
+
+	&:has(button:active) {
+		border-color: var(--light-color);
+		background-color: var(--theme-color);
+		color: var(--dark-color);
+
+		&::before { border-color: var(--theme-color); }
+	}
 }

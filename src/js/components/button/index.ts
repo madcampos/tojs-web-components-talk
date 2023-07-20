@@ -25,8 +25,8 @@ export class CustomButton extends HTMLElement {
 
 		this.shadowRoot.innerHTML = `
 			<link rel="stylesheet" href="${cssLink}">
-			<div id="wrapper">
-				<button tabindex="-1" type="${this.type}" ${this.disabled ? 'disabled' : ''}>
+			<div id="container">
+				<button tabindex="0" type="${this.type}" ${this.disabled ? 'disabled' : ''}>
 					<slot></slot>
 				</button>
 			</div>

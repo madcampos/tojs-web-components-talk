@@ -31,8 +31,8 @@ export class CustomCard extends HTMLElement {
 				<slot></slot>
 
 				<footer>
-					<button id="like" title="Like">👍</button>
-					<button id="share" title="Share">📤</button>
+					<c-button id="like" title="Like">👍</c-button>
+					<c-button id="share" title="Share">📤</c-button>
 				</footer>
 			</article>
 		`;

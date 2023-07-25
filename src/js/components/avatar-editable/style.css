@@ -41,4 +41,4 @@ label {
 	background-image: radial-gradient(circle at center, transparent, var(--inner-border-focus-color));
 }
 
-:host(:not([editable])) #edit-overlay { display: none; }
+:host([disabled]) #edit-overlay { display: none; }

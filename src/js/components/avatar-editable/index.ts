@@ -8,7 +8,7 @@ import cssLink from './style.css?url';
  * @element c-avatar-editable
  */
 export class CustomAvatarEditable extends CustomAvatar {
-	static get observedAttributes() { return [...super.observedAttributes, 'editable']; }
+	static get observedAttributes() { return [...super.observedAttributes, 'disabled']; }
 
 	/** The edit overlay element. */
 	#editOverlay: HTMLDivElement;
@@ -29,23 +29,23 @@ export class CustomAvatarEditable extends CustomAvatar {
 
 		this.#editOverlay = this.shadowRoot.querySelector('#edit-overlay') as HTMLDivElement;
 
-		if (!this.hasAttribute('editable')) {
-			this.editable = false;
+		if (!this.hasAttribute('disabled')) {
+			this.disabled = false;
 		}
 	}
 
 	/**
-	 * Whether the avatar is editable or not.
+	 * Whether the avatar is disabled or not.
 	 *
 	 * @type {boolean}
-	 * @attr editable
+	 * @attr disabled
 	 */
-	get editable() {
-		return this.hasAttribute('editable');
+	get disabled() {
+		return this.hasAttribute('disabled');
 	}
 
-	set editable(value) {
-		this.toggleAttribute('editable', value);
+	set disabled(value) {
+		this.toggleAttribute('disabled', value);
 	}
 
 	#updateImage(file: File) {
@@ -71,7 +71,7 @@ export class CustomAvatarEditable extends CustomAvatar {
 
 			this.#editOverlay.classList.remove('drop');
 
-			if (!this.editable) {
+			if (!this.disabled) {
 				return;
 			}
 
@@ -94,7 +94,7 @@ export class CustomAvatarEditable extends CustomAvatar {
 		});
 
 		document.addEventListener('paste', (evt) => {
-			if (this.editable) {
+			if (this.disabled) {
 				return;
 			}
 
@@ -106,6 +106,21 @@ export class CustomAvatarEditable extends CustomAvatar {
 				this.#updateImage(file);
 			}
 		});
+	}
+
+	attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+		super.attributeChangedCallback(name, oldValue, newValue);
+
+		if (oldValue === newValue) {
+			return;
+		}
+
+		switch (name) {
+			case 'disabled':
+				this.disabled = newValue !== null;
+				break;
+			default:
+		}
 	}
 }
 

@@ -40,7 +40,7 @@ export class CustomSelectOption extends HTMLElement {
 	 * @attr value
 	 */
 	get value() {
-		return this.getAttribute('value') ?? '';
+		return this.getAttribute('value') ?? this.innerText.trim();
 	}
 
 	set value(value: string) {

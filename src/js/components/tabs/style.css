@@ -33,7 +33,7 @@
 	min-block-size: var(--panel-min-size);
 	max-block-size: var(--panel-max-size);
 
-	border: solid var(--border-medium) var(--light-color);
+	border: solid var(--border-medium) var(--text-color);
 	border-radius: var(--border-radius-medium);
 }
 

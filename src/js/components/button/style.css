@@ -70,7 +70,7 @@
 	&:focus-within {
 		border-color: var(--inner-border-focus-color);
 		background-color: var(--outer-border-focus-color);
-		color: var(--dark-color);
+		color: var(--bg-color);
 
 		& button {
 			font-weight: bold;
@@ -85,15 +85,15 @@
 	&:hover {
 		border-color: var(--inner-border-hover-color);
 		background-color: var(--gray-color);
-		color: var(--light-color);
+		color: var(--text-color);
 
 		&::before { border-color: var(--outer-border-hover-color); }
 	}
 
 	&:has(button:active) {
-		border-color: var(--light-color);
+		border-color: var(--text-color);
 		background-color: var(--theme-color);
-		color: var(--dark-color);
+		color: var(--bg-color);
 
 		&::before { border-color: var(--theme-color); }
 	}

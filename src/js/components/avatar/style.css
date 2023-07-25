@@ -50,8 +50,6 @@
 	&:focus-within #image-wrapper {
 		border-color: var(--inner-border-focus-color);
 		background-color: var(--outer-border-focus-color);
-		color: var(--dark-color);
-		font-weight: bold;
 	}
 }
 

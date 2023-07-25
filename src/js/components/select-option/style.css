@@ -16,12 +16,12 @@ button {
 	&:focus {
 		outline: none;
 		background: var(--focus-color);
-		color: var(--dark-color);
+		color: var(--bg-color);
 		font-weight: bold;
 	}
 
 	&:hover {
 		background: var(--theme-color);
-		color: var(--dark-color);
+		color: var(--bg-color);
 	}
 }

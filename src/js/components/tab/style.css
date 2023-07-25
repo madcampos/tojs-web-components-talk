@@ -68,16 +68,16 @@
 
 	&::before {
 		border-style: var(--selected-outer-border);
-		border-color: var(--light-color);
+		border-color: var(--text-color);
 	}
 }
 
 :host(:focus-within) #container {
 	background-color: var(--focus-color);
-	color: var(--dark-color);
+	color: var(--bg-color);
 
 	border-style: var(--selected-outer-border);
-	border-color: var(--light-color);
+	border-color: var(--text-color);
 
 	&::before {
 		border-style: var(--selected-inner-border);
@@ -86,7 +86,7 @@
 }
 
 :host(:hover) #container {
-	color: var(--light-color);
+	color: var(--text-color);
 	border-color: var(--theme-color);
 	background-color: var(--gray-color);
 }

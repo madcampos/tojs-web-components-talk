@@ -101,7 +101,7 @@ export class CustomTabs extends HTMLElement {
 
 		this.#associateTabs();
 
-		const selectedTab = (this.#tabsSlot.assignedElements().find((tab) => tab.id === this.selected) ?? this.#tabsSlot.assignedElements()[0]) as HTMLElement;
+		const selectedTab = (this.#tabsSlot.assignedElements().find((tab) => tab.id === this.selected || tab.hasAttribute('selected')) ?? this.#tabsSlot.assignedElements()[0]) as HTMLElement;
 
 		this.#selectTab(selectedTab);
 

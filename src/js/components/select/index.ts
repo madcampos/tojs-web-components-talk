@@ -94,11 +94,12 @@ export class CustomSelect extends HTMLElement {
 
 	set value(value: string) {
 		this.setAttribute('value', value);
+		this.#internals.setFormValue(value);
 
 		const options = this.#optionsSlot.assignedElements() as CustomSelectOption[];
 		const selectedOption = options.find((option) => option.value === value || option.getAttribute('value') === value);
 
-		this.#selectedOption.textContent = selectedOption?.textContent ?? this.#placeholderText;
+		this.#selectedOption.textContent = selectedOption?.textContent?.trim() ?? this.#placeholderText;
 	}
 
 	/**
@@ -337,7 +338,6 @@ export class CustomSelect extends HTMLElement {
 			});
 
 			this.value = target.value;
-			this.#internals.setFormValue(target.value);
 
 			this.#validate();
 

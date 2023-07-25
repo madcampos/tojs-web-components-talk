@@ -21,7 +21,7 @@ export class CustomAvatarEditable extends CustomAvatar {
 		this.shadowRoot.querySelector('#container')?.insertAdjacentHTML('beforeend', `
 			<div id="edit-overlay">
 				<label for="avatar-input">📷</label>
-				<input type="file" hidden id="avatar-input" accept="image/*" />
+				<input type="file" id="avatar-input" accept="image/*" />
 			</div>
 		`);
 
@@ -52,6 +52,7 @@ export class CustomAvatarEditable extends CustomAvatar {
 		const img = this.shadowRoot.querySelector('img') as HTMLImageElement;
 
 		img.src = URL.createObjectURL(file);
+		this.image = img.src;
 	}
 
 	connectedCallback() {
@@ -68,6 +69,8 @@ export class CustomAvatarEditable extends CustomAvatar {
 			evt.preventDefault();
 			evt.stopPropagation();
 
+			this.#editOverlay.classList.remove('drop');
+
 			if (!this.editable) {
 				return;
 			}
@@ -78,8 +81,6 @@ export class CustomAvatarEditable extends CustomAvatar {
 			if (fileType.startsWith('image/')) {
 				this.#updateImage(file);
 			}
-
-			this.#editOverlay.classList.remove('drop');
 		});
 
 		this.shadowRoot.querySelector('#avatar-input')?.addEventListener('change', (evt) => {

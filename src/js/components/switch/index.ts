@@ -47,8 +47,8 @@ export class CustomSwitch extends HTMLElement {
 				</div>
 
 				<div id="state-indicators">
-					<span class="on" aria-hidden="true">On</span>
-					<span class="off" aria-hidden="true">Off</span>
+					<span id="state-on" aria-hidden="true">On</span>
+					<span id="state-off" aria-hidden="true">Off</span>
 				</div>
 			</label>
 		`;

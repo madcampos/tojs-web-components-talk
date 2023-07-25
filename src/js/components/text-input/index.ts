@@ -86,7 +86,7 @@ export class CustomTextInput extends HTMLElement {
 
 	set disabled(value: boolean) {
 		this.toggleAttribute('disabled', value);
-		this.shadowRoot.querySelector('input')?.setAttribute('disabled', value.toString());
+		this.shadowRoot.querySelector('input')?.toggleAttribute('disabled', value);
 	}
 
 	/**
@@ -102,7 +102,7 @@ export class CustomTextInput extends HTMLElement {
 
 	set readonly(value: boolean) {
 		this.toggleAttribute('readonly', value);
-		this.shadowRoot.querySelector('input')?.setAttribute('readonly', value.toString());
+		this.shadowRoot.querySelector('input')?.toggleAttribute('readonly', value);
 	}
 
 	/**
@@ -118,7 +118,7 @@ export class CustomTextInput extends HTMLElement {
 
 	set required(value: boolean) {
 		this.toggleAttribute('required', value);
-		this.shadowRoot.querySelector('input')?.setAttribute('required', value.toString());
+		this.shadowRoot.querySelector('input')?.toggleAttribute('required', value);
 		this.#internals.ariaRequired = value.toString();
 	}
 
@@ -135,7 +135,7 @@ export class CustomTextInput extends HTMLElement {
 
 	set autocomplete(value: boolean) {
 		this.toggleAttribute('autocomplete', value);
-		this.shadowRoot.querySelector('input')?.setAttribute('autocomplete', value.toString());
+		this.shadowRoot.querySelector('input')?.toggleAttribute('autocomplete', value);
 	}
 
 	/**

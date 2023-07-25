@@ -12,3 +12,9 @@ import './components/tab-panel';
 import './components/tabs';
 import './components/text-input';
 import './components/username';
+
+// Functionality
+import './translation';
+import './settings';
+import './user-form';
+import './friends';

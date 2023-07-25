@@ -6,8 +6,6 @@
 	--is-regular-motion: var(--on);
 
 	--theme-color: greenyellow;
-	--accent-color: lawngreen;
-	--secondary-color: darkslategray;
 	--dark-color: #1d1d1d;
 	--light-color: snow;
 	--gray-color: color-mix(in srgb, dimgray, transparent 50%);
@@ -17,7 +15,6 @@
 	--bg-color: var(--dark-color);
 
 	--focus-color: seagreen;
-	--hover-color: goldenrod;
 	--required-color: maroon;
 
 	--inner-border-normal-color: var(--gray-color);
@@ -85,3 +82,26 @@ body {
 @media (prefers-reduced-motion) {
 	:root { --is-regular-motion: var(--off); }
 }
+
+/* Element styles */
+
+fieldset {
+	border: solid var(--border-small) var(--inner-border-normal-color);
+	border-radius: var(--border-radius-medium);
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--margin-medium);
+
+	&:not(:first-of-type) {
+		margin-block-start: var(--margin-large);
+	}
+
+	& legend {
+		padding: 0 var(--padding-medium);
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+}
+
+form[disabled] c-button:not(#edit-button) { display: none; }
+form:not([disabled]) c-button#edit-button { display: none; }

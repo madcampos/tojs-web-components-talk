@@ -1,6 +1,8 @@
 #combobox-container {
 	padding: var(--padding-small);
-	width: 1.3rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	text-align: center;
 
 	& button {
 		display: none;

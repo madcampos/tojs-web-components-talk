@@ -9,6 +9,13 @@ import { CustomSelect } from '../select';
  * @element c-status-changer
  */
 export class CustomStatusChanger extends CustomSelect {
+	#statusMap = new Map([
+		['Online', '🟢'],
+		['Busy', '🔴'],
+		['Away', '🟡'],
+		['Offline', '⚪']
+	]);
+
 	constructor() {
 		super();
 
@@ -24,6 +31,20 @@ export class CustomStatusChanger extends CustomSelect {
 		if (!this.getAttribute('value')) {
 			this.value = 'Online';
 		}
+	}
+
+	get value() {
+		return super.value;
+	}
+
+	set value(value) {
+		super.value = value;
+
+		this.setAttribute('value', this.value);
+
+		const selectedOption = this.shadowRoot.querySelector<HTMLLabelElement>('label') as HTMLLabelElement;
+
+		selectedOption.innerText = this.#statusMap.get(this.value) ?? '';
 	}
 }
 

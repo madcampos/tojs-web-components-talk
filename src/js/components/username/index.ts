@@ -20,7 +20,7 @@ export class CustomUsernameInput extends CustomTextInput {
 	constructor() {
 		super();
 
-		this.shadowRoot.querySelector('style')?.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${cssLink}">`);
+		this.shadowRoot.querySelector('link')?.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${cssLink}">`);
 
 		this.shadowRoot.querySelector('input')?.insertAdjacentHTML('afterend', `<span id="username-hash">${this.userHash}</span>`);
 	}
@@ -43,6 +43,8 @@ export class CustomUsernameInput extends CustomTextInput {
 	}
 
 	connectedCallback() {
+		super.connectedCallback();
+
 		this.shadowRoot.querySelector('input')?.addEventListener('input', (evt) => {
 			if (this.value.includes('#')) {
 				evt.stopPropagation();
@@ -56,8 +58,6 @@ export class CustomUsernameInput extends CustomTextInput {
 				this.setCustomValidity('Username cannot contain #');
 			}
 		});
-
-		super.connectedCallback();
 	}
 
 	attributeChangedCallback(name: string, oldValue: string, newValue: string) {

@@ -1,4 +1,1 @@
-:host * {
-	box-sizing: border-box;
-	font-family: inherit;
-}
+#username-hash::before { content: '#'; }

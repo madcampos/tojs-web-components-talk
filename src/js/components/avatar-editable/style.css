@@ -28,6 +28,7 @@ label {
 	border-radius: 100vmax;
 
 	transition: all 0.2s ease-in-out;
+	-webkit-mask-image: radial-gradient(circle var(--mask-size) at calc(100% - var(--mask-size)) calc(100% - var(--mask-size)), transparent var(--mask-size), black);
 
 	&:hover {
 		cursor: pointer;

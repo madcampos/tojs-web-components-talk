@@ -1,5 +1,6 @@
 :host {
 	--avatar-size: 7rem;
+	--mask-size: 1.22rem;
 }
 
 :host * {
@@ -28,6 +29,9 @@
 		background-clip: content-box;
 
 		transition: all 0.2s ease-in-out;
+
+		-webkit-mask-image: radial-gradient(circle var(--mask-size) at calc(100% - var(--mask-size)) calc(100% - var(--mask-size)), transparent var(--mask-size), black);
+		pointer-events: none;
 
 		& img {
 			width: 100%;

@@ -63,4 +63,5 @@
 	justify-self: end;
 	scale: 0.7;
 	transform-origin: bottom right;
+	z-index: 1;
 }

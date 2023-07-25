@@ -5,7 +5,6 @@ import './components/card';
 import './components/purchase-card';
 import './components/select';
 import './components/select-option';
-import './components/slider';
 import './components/status-changer';
 import './components/switch';
 import './components/tab';

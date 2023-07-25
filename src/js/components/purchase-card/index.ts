@@ -28,15 +28,12 @@ export class CustomPurchaseCard extends HTMLElement {
 			<link rel="stylesheet" href="${cssLink}">
 			<div id="card-container">
 				<div id="hero-image">
-					<img src="" alt="Hero Image">
+					<img src="${this.image}" alt="Hero Image">
 				</div>
 				<div id="card-content">
-					<h2 id="card-title"></h2>
-					<p id="card-price"></p>
-				</div>
-
-				<div id="card-actions">
-					<button id="card-button">🪙 Buy</button>
+					<h2 id="card-title">${this.title}</h2>
+					<p id="card-price">${this.price}</p>
+					<c-button id="card-button">🪙 Buy</c-button>
 				</div>
 			</div>
 		`;

@@ -2,3 +2,11 @@
 	box-sizing: border-box;
 	font-family: inherit;
 }
+
+header {
+	display: flex;
+	align-items: center;
+	gap: var(--margin-medium);
+}
+
+:host([hide-buttons]) footer { display: none; }

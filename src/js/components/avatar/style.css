@@ -21,7 +21,7 @@
 		width: var(--avatar-size);
 		height: var(--avatar-size);
 
-		border: var(--border-medium) solid var(--inner-border-normal-color);
+		border: var(--border-medium) solid var(--outer-border-normal-color);
 		border-radius: 100vmax;
 		margin: var(--margin-medium);
 		padding: var(--padding-small);
@@ -30,7 +30,7 @@
 
 		transition: all 0.2s ease-in-out;
 
-		-webkit-mask-image: radial-gradient(circle var(--mask-size) at calc(100% - var(--mask-size)) calc(100% - var(--mask-size)), transparent var(--mask-size), black);
+		-webkit-mask-image: radial-gradient(circle var(--mask-size) at calc(100% - var(--mask-size)) calc(100% - var(--mask-size)), transparent var(--mask-size), var(--bg-color));
 		pointer-events: none;
 
 		& img {
@@ -48,7 +48,7 @@
 	}
 
 	&:focus-within #image-wrapper {
-		border-color: var(--inner-border-focus-color);
+		border-color: var(--outer-border-focus-color);
 		background-color: var(--outer-border-focus-color);
 	}
 }
@@ -57,9 +57,16 @@
 :host([image]) svg { display: none; }
 
 #status {
+	display: grid;
+	place-items: center;
+	width: calc(var(--mask-size) * 2);
+	height: calc(var(--mask-size) * 2);
 	align-self: end;
 	justify-self: end;
-	scale: 0.7;
 	transform-origin: bottom right;
 	z-index: 1;
+}
+
+#status ::slotted(span) {
+	font-size: calc(var(--mask-size) * 1.6);
 }

@@ -20,6 +20,7 @@
 	display: grid;
 	width: var(--card-size);
 	height: var(--card-size);
+	color: var(--text-color);
 
 	place-items: center;
 	gap: var(--padding-medium);
@@ -105,7 +106,7 @@
 }
 
 #card-content {
-	background: linear-gradient(to bottom, transparent, black);
+	background: linear-gradient(to bottom, transparent, var(--bg-color));
 	width: 100%;
 	height: 100%;
 	display: grid;

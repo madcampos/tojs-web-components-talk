@@ -5,25 +5,50 @@
 	--is-light: var(--on);
 	--is-regular-motion: var(--on);
 
-	--theme-color: greenyellow;
-	--dark-color: #1d1d1d;
-	--light-color: snow;
+	--light-theme-color: var(--is-light) seagreen;
+	--dark-theme-color: greenyellow;
+	--theme-color: var(--light-theme-color, var(--dark-theme-color));
 	--gray-color: color-mix(in srgb, dimgray, transparent 50%);
 
-	--text-color: var(--light-color);
+	--light-text-color: var(--is-light) black;
+	--dark-text-color: snow;
+	--text-color: var(--light-text-color, var(--dark-text-color));
 
-	--bg-color: var(--dark-color);
+	--light-bg-color: var(--is-light) whitesmoke;
+	--dark-bg-color: #1d1d1d;
+	--bg-color: var(--light-bg-color, var(--dark-bg-color));
 
-	--focus-color: seagreen;
-	--required-color: maroon;
+	--light-required-color: var(--is-light) tomato;
+	--dark-required-color: maroon;
+	--required-color: var(--light-required-color, var(--dark-required-color));
 
-	--inner-border-normal-color: var(--gray-color);
-	--inner-border-focus-color: var(--light-color);
-	--inner-border-hover-color: var(--theme-color);
+	--inner-border-normal-light-color: var(--is-light) silver;
+	--inner-border-normal-dark-color: silver;
+	--inner-border-normal-color: var(--inner-border-normal-light-color, var(--inner-border-normal-dark-color));
 
-	--outer-border-normal-color: var(--light-color);
-	--outer-border-focus-color: var(--focus-color);
-	--outer-border-hover-color: var(--light-color);
+	--inner-border-focus-light-color: var(--is-light) darkslategray;
+	--inner-border-focus-dark-color: lightslategray;
+	--inner-border-focus-color: var(--inner-border-focus-light-color, var(--inner-border-focus-dark-color));
+
+	--inner-border-hover-light-color: var(--is-light) var(--theme-color);
+	--inner-border-hover-dark-color: var(--theme-color);
+	--inner-border-hover-color: var(--inner-border-hover-light-color, var(--inner-border-hover-dark-color));
+
+	--outer-border-normal-light-color: var(--is-light) darkslategray;
+	--outer-border-normal-dark-color: snow;
+	--outer-border-normal-color: var(--outer-border-normal-light-color, var(--outer-border-normal-dark-color));
+
+	--outer-border-focus-light-color: var(--is-light) olivedrab;
+	--outer-border-focus-dark-color: seagreen;
+	--outer-border-focus-color: var(--outer-border-focus-light-color, var(--outer-border-focus-dark-color));
+
+	--outer-border-hover-light-color: var(--is-light) dimgray;
+	--outer-border-hover-dark-color: snow;
+	--outer-border-hover-color: var(--outer-border-hover-light-color, var(--outer-border-hover-dark-color));
+
+	--disabled-input-light-color: var(--is-light) dimgray;
+	--disabled-input-dark-color: silver;
+	--disabled-input-color: var(--disabled-input-light-color, var(--disabled-input-dark-color));
 
 	--base-size: 18px;
 
@@ -46,7 +71,7 @@
 	--required-marker-size: 0.6rem;
 
 	accent-color: var(--theme-color);
-	color-scheme: dark light;
+	color-scheme: light dark;
 
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -76,11 +101,24 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
-	:root { --is-light: var(--off); }
+	:root {
+		--is-light: var(--off);
+		color-scheme: dark;
+	}
 }
 
 @media (prefers-reduced-motion) {
 	:root { --is-regular-motion: var(--off); }
+}
+
+html.light-mode {
+	--is-light: var(--on);
+	color-scheme: light;
+}
+
+html.dark-mode {
+	--is-light: var(--off);
+	color-scheme: dark;
 }
 
 /* Element styles */

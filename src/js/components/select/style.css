@@ -15,9 +15,9 @@
 
 :host([disabled]) #combobox-container {
 	pointer-events: none;
-	color: var(--gray-color);
+	color: var(--disabled-input-color);
 
-	&::before { border-color: var(--gray-color); }
+	&::before { border-color: var(--disabled-input-color); }
 }
 
 :host([required]) #combobox-container::after {
@@ -135,7 +135,7 @@
 		margin: 0;
 		overflow: auto;
 
-		border: solid var(--border-medium) var(--focus-color);
+		border: solid var(--border-medium) var(--outer-border-focus-color);
 		border-radius: var(--border-radius-medium);
 		background-color: var(--bg-color);
 	}

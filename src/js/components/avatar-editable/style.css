@@ -29,7 +29,7 @@ label {
 	border-radius: 100vmax;
 
 	transition: all 0.2s ease-in-out;
-	-webkit-mask-image: radial-gradient(circle var(--mask-size) at calc(100% - var(--mask-size)) calc(100% - var(--mask-size)), transparent var(--mask-size), black);
+	-webkit-mask-image: radial-gradient(circle var(--mask-size) at calc(100% - var(--mask-size)) calc(100% - var(--mask-size)), transparent var(--mask-size), var(--bg-color));
 
 	&:hover {
 		cursor: pointer;
@@ -40,6 +40,11 @@ label {
 #edit-overlay.drop label {
 	cursor: pointer;
 	background-image: radial-gradient(circle at center, transparent, var(--inner-border-focus-color));
+}
+
+#status ::slotted(c-status-changer) {
+	scale: 0.7;
+	transform-origin: 0.4rem -0.4rem;
 }
 
 :host([disabled]) #edit-overlay { display: none; }

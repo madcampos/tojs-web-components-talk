@@ -10,6 +10,8 @@ function setDefaultValues() {
 	document.querySelector('c-select#language-select')?.setAttribute('value', language);
 	document.querySelector('c-switch#ad-tracking-switch')?.toggleAttribute('checked', isAdTrackingEnabled);
 	document.querySelector('c-switch#notifications-switch')?.toggleAttribute('checked', isNotificationsEnabled);
+
+	document.documentElement.classList.toggle('light-mode', isLightMode);
 }
 
 function addEventListeners() {

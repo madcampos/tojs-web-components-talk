@@ -73,7 +73,7 @@
 }
 
 :host(:focus-within) #container {
-	background-color: var(--focus-color);
+	background-color: var(--outer-border-focus-color);
 	color: var(--bg-color);
 
 	border-style: var(--selected-outer-border);
@@ -81,7 +81,7 @@
 
 	&::before {
 		border-style: var(--selected-inner-border);
-		border-color: var(--focus-color);
+		border-color: var(--outer-border-focus-color);
 	}
 }
 

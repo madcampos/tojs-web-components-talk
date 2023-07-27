@@ -69,7 +69,12 @@
 					<form action="#" disabled>
 						<c-card hide-buttons>
 							<c-avatar-editable slot="image" disabled>
-								<c-status-changer slot="status" value="Online"></c-status-changer>
+								<c-status-changer slot="status" value="Online">
+									<span slot="online" data-translate-content="status-online">Online</span>
+									<span slot="busy" data-translate-content="status-busy">Busy</span>
+									<span slot="away" data-translate-content="status-away">Away</span>
+									<span slot="offline" data-translate-content="status-offline">Offline</span>
+								</c-status-changer>
 							</c-avatar-editable>
 							<c-username-input slot="subtitle" disabled name="username" placeholder="Add your username here..." data-translate-attribute="placeholder:username-placeholder">
 								<span data-translate-content="username-label">Username</span>

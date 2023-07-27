@@ -21,11 +21,11 @@ export class CustomStatusChanger extends CustomSelect {
 
 		this.shadowRoot.querySelector('link')?.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${cssLink}">`);
 
-		this.innerHTML = `
-			<c-select-option value="Online">🟢 Online</c-select-option>
-			<c-select-option value="Busy">🔴 Busy</c-select-option>
-			<c-select-option value="Away">🟡 Away</c-select-option>
-			<c-select-option value="Offline">⚪ Offline</c-select-option>
+		(this.shadowRoot.querySelector('#options-container') as HTMLDivElement).innerHTML = `
+			<c-select-option value="Online">🟢 <slot name="online">Online</slot></c-select-option>
+			<c-select-option value="Busy">🔴 <slot name="busy">Busy</slot></c-select-option>
+			<c-select-option value="Away">🟡 <slot name="away">Away</slot></c-select-option>
+			<c-select-option value="Offline">⚪ <slot name="offline">Offline</slot></c-select-option>
 		`;
 
 		if (!this.getAttribute('value')) {

@@ -3,6 +3,10 @@
 const translations = new Map([
 	['en-US', new Map([
 		['profile-tab', '🤖 Profile'],
+		['status-online', 'Online'],
+		['status-busy', 'Busy'],
+		['status-away', 'Away'],
+		['status-offline', 'Offline'],
 		['username-label', 'Username'],
 		['username-placeholder', 'Add your username here...'],
 		['pronoums-label', 'Pronoums'],
@@ -43,6 +47,10 @@ const translations = new Map([
 	])],
 	['fr-FR', new Map([
 		['profile-tab', '🤖 Profil'],
+		['status-online', 'Connecté'],
+		['status-busy', 'Occupé'],
+		['status-away', 'Absent'],
+		['status-offline', 'Déconnecté'],
 		['username-label', 'Nom d\'utilisateur'],
 		['username-placeholder', 'Add your username here...'],
 		['pronoums-label', 'Pronoms'],
@@ -83,6 +91,10 @@ const translations = new Map([
 	])],
 	['pt-BR', new Map([
 		['profile-tab', '🤖 Perfil'],
+		['status-online', 'Online'],
+		['status-busy', 'Ocupado'],
+		['status-away', 'Ausente'],
+		['status-offline', 'Offline'],
 		['username-label', 'Nome de usuário'],
 		['username-placeholder', 'Adicione seu nome de usuário aqui...'],
 		['pronoums-label', 'Pronomes'],

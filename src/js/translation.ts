@@ -28,6 +28,7 @@ const translations = new Map([
 		['notifications-description', 'Enable <em>notifications</em> for new messages.'],
 
 		['friends-tab', '⭐ Friends'],
+		['notification-message', 'sent a new message'],
 
 		['store-tab', '🪙 Store'],
 		['store-description', 'Buy credits to unlock new features!'],
@@ -72,6 +73,7 @@ const translations = new Map([
 		['notifications-description', 'Activer les <em>notifications</em> par noveaux messages.'],
 
 		['friends-tab', '⭐ Amis'],
+		['notification-message', 'envoyé un nouveau message'],
 
 		['store-tab', '🪙 Magasin'],
 		['store-description', 'Acheter des crédits pour débloquer des nouvelles fonctionnalités!'],
@@ -116,6 +118,7 @@ const translations = new Map([
 		['notifications-description', 'Ativa <em>notificaçoes</em> para novas mensagens.'],
 
 		['friends-tab', '⭐ Amigos'],
+		['notification-message', 'enviou uma nova mensagem'],
 
 		['store-tab', '🪙 Loja'],
 		['store-description', 'Compre créditos para desbloquear novas funcionalidades!'],

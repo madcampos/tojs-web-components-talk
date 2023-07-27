@@ -17,8 +17,9 @@ import './components/username';
 import { initializeTranslation } from './translation';
 import { initializeSettings } from './settings';
 import { initializeUserForm } from './user-form';
-import './friends';
+import { initFriends } from './friends';
 
 initializeUserForm();
 initializeSettings();
 initializeTranslation();
+void initFriends();

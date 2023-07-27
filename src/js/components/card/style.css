@@ -9,4 +9,11 @@ header {
 	gap: var(--margin-medium);
 }
 
+#content {
+	padding-inline: var(--padding-medium);
+}
+
 :host([hide-buttons]) footer { display: none; }
+
+:host([liked]) #like { display: none; }
+:host(:not([liked])) #unlike { display: none; }

@@ -1,3 +1,7 @@
+import type { CustomButton } from '../button';
+
+import { toggleLikeMessage } from '../../friends';
+
 import cssLink from './style.css?url';
 
 /**
@@ -24,14 +28,19 @@ export class CustomCard extends HTMLElement {
 					<picture>
 						<slot name="image"></slot>
 					</picture>
-					<h2><slot name="title"></slot></h2>
-					<p><slot name="subtitle"></slot></p>
+					<div>
+						<h2><slot name="title"></slot></h2>
+						<p><slot name="subtitle"></slot></p>
+					</div>
 				</header>
 
-				<slot></slot>
+				<div id="content">
+					<slot></slot>
+				</div>
 
 				<footer>
 					<c-button id="like" title="Like">👍</c-button>
+					<c-button id="unlike" title="Remove Like">💔</c-button>
 					<c-button id="share" title="Share">📤</c-button>
 				</footer>
 			</article>
@@ -39,30 +48,56 @@ export class CustomCard extends HTMLElement {
 	}
 
 	connectedCallback() {
-		const like = this.shadowRoot.querySelector('#like') as HTMLButtonElement;
-		const share = this.shadowRoot.querySelector('#share') as HTMLButtonElement;
+		this.shadowRoot.querySelector('#like')?.addEventListener('click', async (evt) => {
+			const target = evt.target as CustomButton;
 
-		like.addEventListener('click', () => {
-			like.disabled = true;
+			target.disabled = true;
 
 			try {
-				like.classList.toggle('liked');
+				await toggleLikeMessage(this.getAttribute('message-id') ?? '');
+
+				this.toggleAttribute('liked', true);
 
 				this.dispatchEvent(new CustomEvent<{ state: boolean, id: string }>('like', {
 					detail: {
-						state: like.classList.contains('liked'),
-						id: this.getAttribute('user-id') ?? ''
+						state: target.classList.contains('liked'),
+						id: this.getAttribute('message-id') ?? ''
 					}
 				}));
 			} catch {
 				console.error('Like failed');
 			}
 
-			like.disabled = false;
+			target.disabled = false;
 		});
 
-		share.addEventListener('click', async () => {
-			share.disabled = true;
+		this.shadowRoot.querySelector('#unlike')?.addEventListener('click', async (evt) => {
+			const target = evt.target as CustomButton;
+
+			target.disabled = true;
+
+			try {
+				await toggleLikeMessage(this.getAttribute('message-id') ?? '');
+
+				this.toggleAttribute('liked', false);
+
+				this.dispatchEvent(new CustomEvent<{ state: boolean, id: string }>('like', {
+					detail: {
+						state: target.classList.contains('liked'),
+						id: this.getAttribute('message-id') ?? ''
+					}
+				}));
+			} catch {
+				console.error('Like failed');
+			}
+
+			target.disabled = false;
+		});
+
+		this.shadowRoot.querySelector('#share')?.addEventListener('click', async (evt) => {
+			const target = evt.target as CustomButton;
+
+			target.disabled = true;
 
 			try {
 				const title = this.shadowRoot.querySelector<HTMLSlotElement>('slot[name="title"]')?.assignedElements()[0]?.textContent ?? '';
@@ -80,7 +115,7 @@ export class CustomCard extends HTMLElement {
 				console.error('Share failed');
 			}
 
-			share.disabled = false;
+			target.disabled = false;
 		});
 	}
 }

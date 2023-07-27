@@ -4,7 +4,7 @@ function setDefaultValues() {
 	const isLightMode = localStorage.getItem('is-light-mode') === 'true';
 	const language = localStorage.getItem('language') ?? 'en-US';
 	const isAdTrackingEnabled = localStorage.getItem('is-ad-tracking-enabled') === 'true';
-	const isNotificationsEnabled = localStorage.getItem('is-notifications-enabled') === 'true';
+	const isNotificationsEnabled = Notification.permission === 'granted';
 
 	document.querySelector('c-switch#light-mode-switch')?.toggleAttribute('checked', isLightMode);
 	document.querySelector('c-select#language-select')?.setAttribute('value', language);
@@ -45,9 +45,10 @@ function addEventListeners() {
 	document.querySelector('c-switch#notifications-switch')?.addEventListener('change', async (event) => {
 		const isNotificationsEnabled = (event.target as HTMLInputElement).checked;
 
-		localStorage.setItem('is-notifications-enabled', isNotificationsEnabled.toString());
 		try {
-			await Notification.requestPermission();
+			if (!isNotificationsEnabled) {
+				await Notification.requestPermission();
+			}
 		} catch (err) {
 			// eslint-disable-next-line no-console
 			console.error(err);

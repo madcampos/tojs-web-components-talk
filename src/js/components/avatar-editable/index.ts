@@ -71,20 +71,19 @@ export class CustomAvatarEditable extends CustomAvatar {
 			this.#editOverlay.classList.remove('drop');
 		});
 
-		this.shadowRoot.querySelector('#edit-overlay')?.addEventListener('drop', (evt) => {
+		this.shadowRoot.querySelector('#edit-overlay label')?.addEventListener('drop', (evt) => {
 			evt.preventDefault();
 			evt.stopPropagation();
 
 			this.#editOverlay.classList.remove('drop');
 
-			if (!this.disabled) {
+			if (this.disabled) {
 				return;
 			}
 
 			const [file] = Array.from(evt.dataTransfer?.files ?? []);
-			const fileType = file.type;
 
-			if (fileType.startsWith('image/')) {
+			if (file.type?.startsWith('image/')) {
 				this.#updateImage(file);
 			}
 		});
@@ -92,9 +91,8 @@ export class CustomAvatarEditable extends CustomAvatar {
 		this.shadowRoot.querySelector('#avatar-input')?.addEventListener('change', (evt) => {
 			const target = evt.target as HTMLInputElement;
 			const [file] = Array.from(target.files ?? []);
-			const fileType = file.type;
 
-			if (fileType.startsWith('image/')) {
+			if (file.type?.startsWith('image/')) {
 				this.#updateImage(file);
 			}
 		});

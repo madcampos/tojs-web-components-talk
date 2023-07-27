@@ -36,8 +36,10 @@ function addEventListeners() {
 
 		localStorage.setItem('is-ad-tracking-enabled', isAdTrackingEnabled.toString());
 
-		// eslint-disable-next-line no-alert
-		alert('All your data are belong to us!');
+		if (isAdTrackingEnabled) {
+			// eslint-disable-next-line no-alert
+			alert('All your data are belong to us!');
+		}
 	});
 
 	document.querySelector('c-switch#notifications-switch')?.addEventListener('change', async (event) => {

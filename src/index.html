@@ -88,24 +88,24 @@
 
 				<c-tab slot="tabs" data-translate-content>🛠️ Settings</c-tab>
 				<c-tab-panel slot="panels">
-					<c-switch value="light-mode">
+					<c-switch id="light-mode-switch">
 						<span data-translate-content>Light Mode</span>
 						<span slot="description" data-translate-content>Enable <em>light</em> mode</span>
 					</c-switch>
 
-					<c-select>
+					<c-select id="language-select">
 						<h3 slot="label" data-translate-content>Language</h3>
-						<c-select-option data-translate-content>English</c-select-option>
-						<c-select-option data-translate-content>French</c-select-option>
-						<c-select-option data-translate-content>Brazilian Portuguese</c-select-option>
+						<c-select-option value="en-US" data-translate-content>English</c-select-option>
+						<c-select-option value="fr-FR" data-translate-content>French</c-select-option>
+						<c-select-option value="pt-BR" data-translate-content>Brazilian Portuguese</c-select-option>
 					</c-select>
 
-					<c-switch value="track">
+					<c-switch id="ad-tracking-switch">
 						<span data-translate-content>Enable ad tracking</span>
 						<span slot="description" data-translate-content>Enable <em>ad tracking</em>. Privacy is the default</span>
 					</c-switch>
 
-					<c-switch value="notifications">
+					<c-switch id="notifications-switch">
 						<span data-translate-content>Enable notifications</span>
 						<span slot="description" data-translate-content>Enable <em>notifications</em> for new messages</span>
 					</c-switch>

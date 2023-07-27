@@ -17,7 +17,7 @@ const sslOptions = {
 const manifest: Partial<ManifestOptions> = JSON.parse(readFileSync('./src/manifest.json', { encoding: 'utf8' }));
 
 export default defineConfig(({ mode }) => {
-	const baseUrl = mode === 'production' ? 'https://madcampos.dev/talks/web-components' : 'https://localhost:3000/';
+	const baseUrl = mode === 'production' ? 'https://madcampos.dev/talks/tojs-web-components' : 'https://localhost:3000/';
 
 	const config: UserConfig = {
 		plugins: [

@@ -51,8 +51,14 @@ export class CustomAvatarEditable extends CustomAvatar {
 	#updateImage(file: File) {
 		const img = this.shadowRoot.querySelector('img') as HTMLImageElement;
 
-		img.src = URL.createObjectURL(file);
-		this.image = img.src;
+		const reader = new FileReader();
+
+		reader.onloadend = () => {
+			img.src = reader.result as string;
+			this.image = img.src;
+		};
+
+		reader.readAsDataURL(file);
 	}
 
 	connectedCallback() {

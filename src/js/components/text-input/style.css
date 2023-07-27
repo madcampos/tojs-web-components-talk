@@ -14,7 +14,6 @@
 }
 
 :host([disabled]) #container {
-	pointer-events: none;
 	color: var(--gray-color);
 
 	&::before { border-color: var(--gray-color); }

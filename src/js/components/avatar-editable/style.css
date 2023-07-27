@@ -24,6 +24,7 @@ label {
 	place-items: center;
 	background-clip: content-box;
 	padding: var(--padding-medium);
+	background-image: radial-gradient(circle at center, transparent, var(--gray-color));
 
 	border-radius: 100vmax;
 
@@ -42,3 +43,4 @@ label {
 }
 
 :host([disabled]) #edit-overlay { display: none; }
+:host(:not([disabled])) #image-wrapper { opacity: 0.3; }

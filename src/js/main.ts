@@ -16,5 +16,7 @@ import './components/username';
 // Functionality
 import './translation';
 import './settings';
-import './user-form';
+import { initializeUserForm } from './user-form';
 import './friends';
+
+initializeUserForm();

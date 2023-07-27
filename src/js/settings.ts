@@ -1,3 +1,5 @@
+import { translateContent } from './translation';
+
 function setDefaultValues() {
 	const isLightMode = localStorage.getItem('is-light-mode') === 'true';
 	const language = localStorage.getItem('language') ?? 'en-US';
@@ -23,6 +25,8 @@ function addEventListeners() {
 
 		localStorage.setItem('language', language);
 		document.documentElement.lang = language;
+
+		translateContent();
 	});
 
 	document.querySelector('c-switch#ad-tracking-switch')?.addEventListener('change', (event) => {

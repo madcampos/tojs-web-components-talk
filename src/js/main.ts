@@ -14,10 +14,11 @@ import './components/text-input';
 import './components/username';
 
 // Functionality
-import './translation';
+import { initializeTranslation } from './translation';
 import { initializeSettings } from './settings';
 import { initializeUserForm } from './user-form';
 import './friends';
 
 initializeUserForm();
 initializeSettings();
+initializeTranslation();

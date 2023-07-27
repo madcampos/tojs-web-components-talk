@@ -1,3 +1,4 @@
+import { translate } from '../../translation';
 import cssLink from './style.css?url';
 
 /**
@@ -52,6 +53,7 @@ export class CustomPurchaseCard extends HTMLElement {
 	set title(value) {
 		this.setAttribute('title', value);
 		(this.shadowRoot.querySelector('#card-title') as HTMLHeadingElement).textContent = value;
+		(this.shadowRoot.querySelector('#card-button') as HTMLElement).innerHTML = translate('store-button');
 	}
 
 	/**

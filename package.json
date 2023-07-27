@@ -70,5 +70,8 @@
 		"extends": [
 			"@commitlint/config-conventional"
 		]
+	},
+	"dependencies": {
+		"idb": "^7.1.1"
 	}
 }

@@ -9,15 +9,17 @@ import htmlMinifier from 'vite-plugin-html-minifier';
 
 import { externalResources, internalResources } from './src/service-worker';
 
-const sslOptions = {
-	cert: readFileSync('./certs/server.crt'),
-	key: readFileSync('./certs/server.key')
-};
-
 const manifest: Partial<ManifestOptions> = JSON.parse(readFileSync('./src/manifest.json', { encoding: 'utf8' }));
 
 export default defineConfig(({ mode }) => {
 	const baseUrl = mode === 'production' ? 'https://madcampos.dev/talks/tojs-web-components/demo/' : 'https://localhost:3000/';
+
+	const sslOptions = mode === 'production'
+		? false
+		: {
+			cert: readFileSync('./certs/server.crt'),
+			key: readFileSync('./certs/server.key')
+		};
 
 	const config: UserConfig = {
 		plugins: [

@@ -14,43 +14,43 @@
 	grid-template-rows: var(--avatar-size);
 	grid-template-areas: 'avatar';
 	place-items: center;
+}
 
-	& > * { grid-area: avatar; }
+#container > * { grid-area: avatar; }
 
-	#image-wrapper {
-		width: var(--avatar-size);
-		height: var(--avatar-size);
+#image-wrapper {
+	width: var(--avatar-size);
+	height: var(--avatar-size);
 
-		border: var(--border-medium) solid var(--outer-border-normal-color);
-		border-radius: 100vmax;
-		margin: var(--margin-medium);
-		padding: var(--padding-small);
+	border: var(--border-medium) solid var(--outer-border-normal-color);
+	border-radius: 100vmax;
+	margin: var(--margin-medium);
+	padding: var(--padding-small);
 
-		background-clip: content-box;
+	background-clip: content-box;
 
-		transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 
-		-webkit-mask-image: radial-gradient(circle var(--mask-size) at calc(100% - var(--mask-size)) calc(100% - var(--mask-size)), transparent var(--mask-size), var(--bg-color));
-		pointer-events: none;
+	-webkit-mask-image: radial-gradient(circle var(--mask-size) at calc(100% - var(--mask-size)) calc(100% - var(--mask-size)), transparent var(--mask-size), var(--bg-color));
+	pointer-events: none;
+}
 
-		& img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			border-radius: 100vmax;
-		}
+#image-wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 100vmax;
+}
 
-		& svg {
-			width: 100%;
-			height: 100%;
-			fill: var(--text-color);
-		}
-	}
+#image-wrapper svg {
+	width: 100%;
+	height: 100%;
+	fill: var(--text-color);
+}
 
-	&:focus-within #image-wrapper {
-		border-color: var(--outer-border-focus-color);
-		background-color: var(--outer-border-focus-color);
-	}
+#container:focus-within #image-wrapper {
+	border-color: var(--outer-border-focus-color);
+	background-color: var(--outer-border-focus-color);
 }
 
 :host(:not([image])) img { display: none; }

@@ -16,9 +16,9 @@
 :host([disabled]) #combobox-container {
 	pointer-events: none;
 	color: var(--disabled-input-color);
-
-	&::before { border-color: var(--disabled-input-color); }
 }
+
+:host([disabled]) #combobox-container::before { border-color: var(--disabled-input-color); }
 
 :host([required]) #combobox-container::after {
 	content: '';
@@ -60,83 +60,96 @@
 	background-clip: content-box;
 
 	transition: all 0.2s ease-in-out;
+}
 
-	&::before {
-		content: '';
-		display: block;
-		position: absolute;
-		inset: calc(var(--margin-medium) * -1);
-		pointer-events: none;
-		transition: inherit;
+#combobox-container::before {
+	content: '';
+	display: block;
+	position: absolute;
+	inset: calc(var(--margin-medium) * -1);
+	pointer-events: none;
+	transition: inherit;
 
-		border: var(--inline-border) var(--border-medium) var(--outer-border-normal-color);
-		border-radius: 100vmax;
-	}
+	border: var(--inline-border) var(--border-medium) var(--outer-border-normal-color);
+	border-radius: 100vmax;
+}
 
-	& label {
-		max-width: 12rem;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
+#combobox-container label {
+	max-width: 12rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 
-		padding-inline-start: var(--padding-small);
-	}
+	padding-inline-start: var(--padding-small);
+}
 
-	& button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-width: 2rem;
+#combobox-container button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2rem;
 
-		font-size: inherit;
-		background: transparent;
-		border: none;
+	font-size: inherit;
+	background: transparent;
+	border: none;
 
-		color: currentcolor;
-		padding: var(--padding-small);
-		text-transform: uppercase;
-		cursor: pointer;
+	color: currentcolor;
+	padding: var(--padding-small);
+	text-transform: uppercase;
+	cursor: pointer;
+}
 
-		&:focus { outline: none; }
-	}
+#combobox-container button:focus { outline: none; }
 
-	&:focus-within {
-		border-color: var(--inner-border-focus-color);
-		background-color: var(--outer-border-focus-color);
-		color: var(--bg-color);
-		font-weight: bold;
+#combobox-container:focus-within {
+	border-color: var(--inner-border-focus-color);
+	background-color: var(--outer-border-focus-color);
+	color: var(--bg-color);
+	font-weight: bold;
+}
 
-		&::before {
-			border-color: var(--outer-border-focus-color);
-			border-block-style: var(--block-border);
-		}
-	}
+#combobox-container:focus-within::before {
+	border-color: var(--outer-border-focus-color);
+	border-block-style: var(--block-border);
+}
 
-	&:hover {
-		border-color: var(--inner-border-hover-color);
-		background-color: var(--gray-color);
-		color: var(--text-color);
+#combobox-container:hover {
+	border-color: var(--inner-border-hover-color);
+	background-color: var(--gray-color);
+	color: var(--text-color);
+}
 
-		&::before { border-color: var(--outer-border-hover-color); }
-	}
+#combobox-container:hover::before { border-color: var(--outer-border-hover-color); }
 
-	& [popover]:popover-open {
-		--popover-top: 5rem;
-		--popover-left: 1.5rem;
+#combobox-container [popover] {
+	display: none;
 
-		min-width: 5rem;
-		width: fit-content;
-		max-width: 20rem;
-		height: clamp(2rem, 20vh, 6rem);
-		position: absolute;
-		inset: unset;
-		top: var(--popover-top);
-		left: var(--popover-left);
-		margin: 0;
-		overflow: auto;
+	--popover-top: 5rem;
+	--popover-left: 1.5rem;
 
-		border: solid var(--border-medium) var(--outer-border-focus-color);
-		border-radius: var(--border-radius-medium);
-		background-color: var(--bg-color);
-	}
+	min-width: 5rem;
+	width: max-content;
+	max-width: 20rem;
+	height: clamp(2rem, 20vh, 6rem);
+	position: absolute;
+	inset: unset;
+	top: var(--popover-top);
+	left: var(--popover-left);
+	margin: 0;
+	overflow: auto;
+
+	border: solid var(--border-medium) var(--outer-border-focus-color);
+	border-radius: var(--border-radius-medium);
+	background-color: var(--bg-color);
+}
+
+#combobox-container [popover]:popover-open { display: block; }
+
+/* stylelint-disable-next-line comment-word-disallowed-list */
+/* FIXME: remove polifill */
+
+#combobox-container [popover].\:popover-open {
+	display: block;
+	top: 3rem;
+	left: 0;
 }

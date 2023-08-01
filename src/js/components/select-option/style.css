@@ -13,16 +13,16 @@ button {
 	color: var(--text-color);
 
 	border-radius: var(--border-radius-small);
+}
 
-	&:focus {
-		outline: none;
-		background: var(--outer-border-focus-color);
-		color: var(--bg-color);
-		font-weight: bold;
-	}
+button:focus {
+	outline: none;
+	background: var(--outer-border-focus-color);
+	color: var(--bg-color);
+	font-weight: bold;
+}
 
-	&:hover {
-		background: var(--theme-color);
-		color: var(--bg-color);
-	}
+button:hover {
+	background: var(--theme-color);
+	color: var(--bg-color);
 }

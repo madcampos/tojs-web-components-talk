@@ -129,16 +129,14 @@ fieldset {
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--margin-medium);
+}
 
-	&:not(:first-of-type) {
-		margin-block-start: var(--margin-large);
-	}
+fieldset:not(:first-of-type) { margin-block-start: var(--margin-large); }
 
-	& legend {
-		padding: 0 var(--padding-medium);
-		font-size: 1.5em;
-		font-weight: bold;
-	}
+fieldset legend {
+	padding: 0 var(--padding-medium);
+	font-size: 1.5em;
+	font-weight: bold;
 }
 
 form[disabled] c-button:not(#edit-button) { display: none; }

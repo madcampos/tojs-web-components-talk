@@ -40,22 +40,22 @@
 	background-clip: content-box;
 
 	transition: all 0.2s ease-in-out;
+}
 
-	&::before {
-		content: '';
-		display: block;
-		position: absolute;
-		inset: calc(var(--margin-medium) * -1);
-		inset-block-end: 0;
-		pointer-events: none;
-		transition: inherit;
+#container::before {
+	content: '';
+	display: block;
+	position: absolute;
+	inset: calc(var(--margin-medium) * -1);
+	inset-block-end: 0;
+	pointer-events: none;
+	transition: inherit;
 
-		border: var(--tab-outer-border) var(--border-medium) var(--gray-color);
-		border-block-end-width: 0;
+	border: var(--tab-outer-border) var(--border-medium) var(--gray-color);
+	border-block-end-width: 0;
 
-		border-start-start-radius: var(--border-radius-medium);
-		border-start-end-radius: var(--border-radius-medium);
-	}
+	border-start-start-radius: var(--border-radius-medium);
+	border-start-end-radius: var(--border-radius-medium);
 }
 
 :host([selected]) #container {
@@ -65,11 +65,11 @@
 	border-color: var(--theme-color);
 
 	padding-block-end: var(--padding-medium);
+}
 
-	&::before {
-		border-style: var(--selected-outer-border);
-		border-color: var(--text-color);
-	}
+:host([selected]) #container::before {
+	border-style: var(--selected-outer-border);
+	border-color: var(--text-color);
 }
 
 :host(:focus-within) #container {
@@ -78,11 +78,11 @@
 
 	border-style: var(--selected-outer-border);
 	border-color: var(--text-color);
+}
 
-	&::before {
-		border-style: var(--selected-inner-border);
-		border-color: var(--outer-border-focus-color);
-	}
+:host(:focus-within) #container::before {
+	border-style: var(--selected-inner-border);
+	border-color: var(--outer-border-focus-color);
 }
 
 :host(:hover) #container {

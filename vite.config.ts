@@ -1,43 +1,26 @@
 /* eslint-disable camelcase, @typescript-eslint/no-magic-numbers */
 // eslint-env node
 import { readFileSync } from 'fs';
-import { resolve } from 'path';
 
-import { defineConfig, type UserConfig } from 'vitest/config';
+import { defineConfig, type UserConfig } from 'vite';
 import { type ManifestOptions, VitePWA as vitePWA } from 'vite-plugin-pwa';
-import htmlMinifier from 'vite-plugin-html-minifier';
-
+import { resolve } from 'path';
 import { externalResources, internalResources } from './src/service-worker';
 
 const manifest: Partial<ManifestOptions> = JSON.parse(readFileSync('./src/manifest.json', { encoding: 'utf8' }));
 
 export default defineConfig(({ mode }) => {
-	const baseUrl = mode === 'production' ? 'https://madcampos.dev/talks/tojs-web-components/demo/' : 'https://localhost:3000/';
+	const baseUrl = mode === 'production' ? 'https://fallout2.madcampos.dev/' : 'https://localhost:3000/';
 
 	const sslOptions = mode === 'production'
 		? false
 		: {
-			cert: readFileSync('./certs/server.crt'),
-			key: readFileSync('./certs/server.key')
+			cert: readFileSync('./certs/server.crt', 'utf-8'),
+			key: readFileSync('./certs/server.key', 'utf-8')
 		};
 
 	const config: UserConfig = {
 		plugins: [
-			htmlMinifier({
-				minify: {
-					collapseWhitespace: true,
-					keepClosingSlash: false,
-					removeComments: true,
-					removeRedundantAttributes: true,
-					removeScriptTypeAttributes: false,
-					removeStyleLinkTypeAttributes: true,
-					removeEmptyAttributes: true,
-					useShortDoctype: true,
-					minifyCSS: false,
-					minifyJS: false,
-					minifyURLs: false
-				}
-			}),
 			vitePWA({
 				registerType: 'prompt',
 				minify: true,
@@ -66,6 +49,7 @@ export default defineConfig(({ mode }) => {
 		clearScreen: false,
 		server: {
 			host: 'localhost',
+			// @ts-expect-error
 			https: sslOptions,
 			open: false,
 			cors: true,
@@ -86,21 +70,9 @@ export default defineConfig(({ mode }) => {
 			}
 		},
 		preview: {
+			// @ts-expect-error
 			https: sslOptions,
 			open: true
-		},
-		test: {
-			include: ['**/*.test.ts'],
-			minThreads: 1,
-			maxThreads: 4,
-			passWithNoTests: true,
-			maxConcurrency: 4,
-			coverage: {
-				functions: 75,
-				branches: 75,
-				lines: 75,
-				statements: 75
-			}
 		}
 	};
 

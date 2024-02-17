@@ -61,8 +61,7 @@
 	place-items: center;
 	width: calc(var(--mask-size) * 2);
 	height: calc(var(--mask-size) * 2);
-	align-self: end;
-	justify-self: end;
+	place-self: end end;
 	transform-origin: bottom right;
 	z-index: 1;
 }

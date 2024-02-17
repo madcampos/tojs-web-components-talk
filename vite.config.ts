@@ -10,7 +10,7 @@ import { externalResources, internalResources } from './src/service-worker';
 const manifest: Partial<ManifestOptions> = JSON.parse(readFileSync('./src/manifest.json', { encoding: 'utf8' }));
 
 export default defineConfig(({ mode }) => {
-	const baseUrl = mode === 'production' ? 'https://fallout2.madcampos.dev/' : 'https://localhost:3000/';
+	const baseUrl = mode === 'production' ? 'https://tojs-talk.madcampos.dev/' : 'https://localhost:3000/';
 
 	const sslOptions = mode === 'production'
 		? false
